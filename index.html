@@ -4,15 +4,25 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
-<title>Nguyễn Nam &amp; Thân Hiền </title>
+<title>Trân trọng kính mời bạn · 29.11.2026 ♡</title>
+<meta name="aac-build" content="V12.5-GOOGLE-SHEETS-NHATRAI"/>
+<meta name="aac-version" content="V12.1 · Responsive Cover + Soft Fade Closing"/>
 <meta name="theme-color" content="#fff0f8"/>
-<meta property="og:title" content="Nguyễn Nam & Thân Hiền – Wedding Invitation"/>
-<meta property="og:description" content="Trân trọng kính mời bạn tới chung vui cùng chúng mình vào ngày 29.11.2026 ♡"/>
+<meta name="wedding-build" content="AAC-V12.4-visible-softfade"/>
 <meta name="description" content="Trân trọng kính mời bạn tới chung vui cùng chúng mình vào ngày 29.11.2026 ♡"/>
 <meta property="og:type" content="website"/>
-
-<meta property="og:image"
-      content="https://nguyennamvathanhien.github.io/namhienweeding/1.webp"/>
+<meta property="og:locale" content="vi_VN"/>
+<meta property="og:site_name" content="Thiệp cưới Nguyễn Nam &amp; Thân Hiền"/>
+<meta property="og:url" content="https://nguyennamvathanhien.github.io/namhienweeding/"/>
+<meta property="og:title" content="Trân trọng kính mời bạn · 29.11.2026 ♡"/>
+<meta property="og:description" content="Trân trọng kính mời bạn tới chung vui cùng chúng mình vào ngày 29.11.2026 ♡"/>
+<meta property="og:image" content="https://nguyennamvathanhien.github.io/namhienweeding/hero.webp"/>
+<meta property="og:image:secure_url" content="https://nguyennamvathanhien.github.io/namhienweeding/hero.webp"/>
+<meta property="og:image:alt" content="Ảnh thiệp cưới Nguyễn Nam và Thân Hiền"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Trân trọng kính mời bạn · 29.11.2026 ♡"/>
+<meta name="twitter:description" content="Trân trọng kính mời bạn tới chung vui cùng chúng mình vào ngày 29.11.2026 ♡"/>
+<meta name="twitter:image" content="https://nguyennamvathanhien.github.io/namhienweeding/hero.webp"/>
 
 <link rel="preload" as="image" href="1.webp" fetchpriority="high"/>
 <link rel="preconnect" href="https://images.unsplash.com"/>
@@ -4736,7 +4746,8 @@ button,input,textarea{font-size:16px}
 #hero .hero-preview-sub{display:block;margin-top:.08rem;font:700 .8rem/1.35 var(--sans);color:#f8d8e7}
 #hero .hero-preview-guest{display:block;margin-top:.28rem;font:600 .9rem/1.45 var(--sans);color:#fff3f7}
 #hero .hero-controls,#hero .hero-photo-counter,#hero .hero-progress-track,#hero .sr-only{display:none!important}
-#hero .hero-slide{animation:none!important;transform:scale(1.045)!important}
+/* V11: image is animated by CSS at the end of this stylesheet. */
+#hero .hero-slide{transform-origin:center 35%;will-change:transform}
 
 #portraitRoom .room-script{letter-spacing:.01em}
 
@@ -5267,9 +5278,825 @@ button,input,textarea{font-size:16px}
   #museumDoor.door-edition .door-open-btn{margin-top:.7rem!important}
   #museumDoor.door-edition .door-hint{margin-top:.35rem!important}
 }
+
+/* ======================================================================
+   V11 | BREATHING HERO · NHỊP PHÓNG TO / THU NHỎ
+   Ảnh #hero phóng nhẹ 1.03 → 1.095 → 1.03 không mờ, không giật.
+   Các Room phía sau không bị tác động.
+   ====================================================================== */
+@keyframes v11WeddingBreath{
+  0%,100% {transform:scale3d(1.025,1.025,1)}
+  50% {transform:scale3d(1.095,1.095,1)}
+}
+#hero .hero-photo-layer .hero-slide:not(.studio-in){
+  animation:v11WeddingBreath 8.5s cubic-bezier(.45,0,.55,1) infinite!important;
+  transform-origin:50% 38%;
+  backface-visibility:hidden;
+  filter:none!important;
+}
+/* Khởi động nhịp ảnh sau khi mở thiệp, tránh phí tài nguyên sau cửa mở. */
+body:not(.invitation-open) #hero .hero-photo-layer .hero-slide{
+  animation-play-state:paused!important;
+}
+/* Hỗ trợ thiết bị yêu cầu giảm chuyển động. */
+@media(prefers-reduced-motion:reduce){
+  #hero .hero-photo-layer .hero-slide{
+    animation:none!important;
+    transform:scale(1.025)!important;
+    will-change:auto!important;
+  }
+}
+
+
+/* =======================================================================
+   AAC WEDDING V12 — STABILITY PATCH (append-only; preserves all Rooms)
+   ======================================================================= */
+/* Only the foreground cover may breathe. This replaces overlapping legacy
+   motion-1/2/3 transforms and avoids compositing two giant moving images. */
+@keyframes aacV12BreathingPhoto {
+  0%,100% {transform:translateZ(0) scale(1.025)}
+  50%     {transform:translateZ(0) scale(1.075)}
+}
+#hero .hero-photo-layer .hero-slide,
+#hero .hero-photo-layer .hero-slide:not(.studio-in){
+  animation:none!important;
+  transform:translateZ(0) scale(1.025);
+  will-change:auto!important;
+}
+#hero .hero-photo-layer .hero-slide.is-active:not(.studio-in){
+  animation:aacV12BreathingPhoto 11s ease-in-out infinite!important;
+  transform-origin:center 35%;
+  will-change:transform!important;
+}
+body:not(.invitation-open) #hero .hero-slide,
+body:not(.aac-hero-visible) #hero .hero-slide{
+  animation-play-state:paused!important;
+}
+#hero .hero-photo-layer .hero-slide.studio-in{animation:none!important}
+/* Mobile hardware: fewer simultaneous large layers and filters. */
+@media(max-width:700px), (pointer:coarse){
+  .floating-heart-balloons .love-air:nth-child(n+4){display:none!important}
+  .floating-heart-balloons .love-air{
+    filter:none!important;
+    opacity:.22!important;
+    animation-duration:42s!important;
+  }
+  #hero .hero-ambient{opacity:.55!important}
+  #hero .hero-light-wash{display:none!important}
+  .cute-confetti{filter:none!important}
+  .bg-orb{display:none!important}
+  .robot-photo-frame{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+}
+body.aac-perf-lite .floating-heart-balloons{display:none!important}
+body.aac-perf-lite .robotic-stage::before,
+body.aac-perf-lite .robotic-stage::after{animation:none!important}
+body.aac-perf-lite .cute-confetti{display:none!important}
+/* Persistent decorative animations should pause when the document is hidden.
+   Browsers naturally throttle hidden tabs; CSS guards reduced motion as well. */
+@media(prefers-reduced-motion:reduce){
+  #hero .hero-photo-layer .hero-slide.is-active:not(.studio-in){animation:none!important;transform:none!important}
+  .floating-heart-balloons{display:none!important}
+}
+
+/* ENDING V12 — bottom third is text; the couple's faces stay uncovered. */
+#closing{
+  position:relative!important;
+  display:flex!important;
+  align-items:flex-end!important;
+  justify-content:center!important;
+  width:100%!important;
+  height:100svh!important;
+  min-height:600px!important;
+  aspect-ratio:auto!important;
+  padding:0!important;
+  overflow:hidden!important;
+  background:#f8eaf1!important;
+}
+#closing .close-bg{
+  position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+  object-fit:cover!important;object-position:center 29%!important;
+  filter:none!important;
+}
+#closing .close-filter{
+  position:absolute!important;inset:0!important;
+  background:linear-gradient(180deg,
+    rgba(255,246,250,.02) 0%,rgba(255,246,250,.0) 42%,
+    rgba(253,242,247,.10) 58%,rgba(255,246,250,.70) 75%,rgba(255,250,252,.96) 100%)!important;
+}
+#closing .close-content{
+  position:relative!important;z-index:3!important;
+  display:flex!important;flex-direction:column!important;align-items:center!important;
+  justify-content:flex-end!important;
+  width:min(100%,600px)!important;max-width:600px!important;
+  margin:0 auto!important;
+  padding:0 14px calc(94px + env(safe-area-inset-bottom,0px))!important;
+  gap:.22rem!important;
+  text-align:center!important;
+  text-shadow:none!important;
+}
+#closing .close-room{
+  margin:0!important;color:#9b6a87!important;
+  font:900 clamp(.60rem,1.8vw,.76rem)/1.3 'Nunito',sans-serif!important;
+  letter-spacing:.05em!important;text-shadow:0 1px 5px #fff!important;
+}
+#closing .close-thanks{
+  margin:.22rem 0 0!important;padding:0!important;
+  font-family:'Great Vibes','Dancing Script',cursive!important;
+  font-size:clamp(2.4rem,8.6vw,4.3rem)!important;
+  line-height:1!important;letter-spacing:0!important;
+  color:#c978a2!important;
+  text-shadow:0 2px 9px rgba(255,255,255,.9)!important;
+}
+#closing .close-note{
+  max-width:340px!important;margin:.20rem auto .05rem!important;
+  font:800 clamp(.78rem,2.6vw,.92rem)/1.45 'Nunito',sans-serif!important;
+  color:#82687d!important;text-shadow:0 2px 7px #fff!important;
+}
+#closing .close-names{
+  margin:.10rem 0 .32rem!important;
+  font-size:clamp(.92rem,2.7vw,1.25rem)!important;
+  font-weight:800!important;line-height:1.25!important;
+  color:#aa7291!important;
+}
+#closing .close-names .couple-script{
+  font-family:'Nunito',sans-serif!important;
+  font-size:inherit!important;line-height:inherit!important;
+  font-weight:900!important;color:#ad6f91!important;
+}
+#closing .close-names .couple-amp{font-size:1.05em!important;color:#e09bbc!important}
+#closing .closing-teddy-pair,#closing .close-signoff{display:none!important}
+#closing .close-actions{
+  display:flex!important;flex-wrap:wrap!important;
+  align-items:center!important;justify-content:center!important;
+  gap:.38rem!important;margin:.20rem auto 0!important;
+  width:100%!important;max-width:480px!important;
+}
+#closing .close-actions a,#closing .close-actions button{
+  min-height:35px!important;max-width:100%!important;
+  padding:.5rem .72rem!important;margin:0!important;
+  font:900 clamp(.61rem,1.7vw,.73rem)/1.3 'Nunito',sans-serif!important;
+  border-radius:999px!important;
+  box-shadow:0 4px 12px rgba(150,95,129,.12)!important;
+}
+@media(max-width:599px){
+  #closing .close-content{padding:0 10px calc(92px + env(safe-area-inset-bottom,0px))!important;gap:.12rem!important}
+  #closing .close-thanks{font-size:clamp(2.55rem,11vw,3.6rem)!important}
+  #closing .close-actions{gap:.30rem!important}
+  #closing .close-actions a,#closing .close-actions button{padding:.47rem .62rem!important;font-size:.60rem!important;min-height:33px!important}
+}
+@media(max-height:680px){
+  #closing{min-height:0!important;height:100svh!important}
+  #closing .close-content{padding-bottom:calc(77px + env(safe-area-inset-bottom,0px))!important}
+  #closing .close-thanks{font-size:2.4rem!important}
+  #closing .close-note{font-size:.72rem!important;line-height:1.25!important}
+  #closing .close-names{display:none!important}
+}
+
+
+
+/* =======================================================================
+   AAC WEDDING V12.1 — ADAPTIVE COVER + SOFT GRADIENT THANK-YOU
+   Only the hero and closing screens; legacy sections and scripts untouched.
+   The red rectangles in the reference images mark desired safe areas; they
+   are NOT included as visible borders.
+   ======================================================================= */
+
+/* Closing: soft blush rising from the bottom, leaving both faces untouched. */
+#closing.v121-fade-ending{
+  position:relative!important;
+  display:block!important;
+  height:100svh!important;
+  min-height:0!important;
+  aspect-ratio:auto!important;
+  overflow:hidden!important;
+  padding:0!important;
+  isolation:isolate!important;
+}
+#closing.v121-fade-ending .close-bg{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center 29%!important;
+  filter:none!important;
+  z-index:0!important;
+}
+#closing.v121-fade-ending .close-filter{
+  position:absolute!important;
+  inset:0!important;
+  z-index:1!important;
+  pointer-events:none!important;
+  background:linear-gradient(to bottom,
+    rgba(255,247,250,0) 0%,
+    rgba(255,247,250,0) 31%,
+    rgba(255,239,246,.06) 40%,
+    rgba(255,233,244,.20) 52%,
+    rgba(255,234,244,.46) 64%,
+    rgba(255,241,248,.77) 78%,
+    rgba(255,248,252,.96) 100%)!important;
+}
+#closing.v121-fade-ending .close-content{
+  position:absolute!important;
+  left:50%!important;
+  right:auto!important;
+  bottom:clamp(88px,13svh,130px)!important;
+  top:auto!important;
+  transform:translateX(-50%)!important;
+  z-index:3!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  width:min(90%,590px)!important;
+  max-width:590px!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  gap:clamp(2px,.35svh,6px)!important;
+  text-align:center!important;
+  overflow:visible!important;
+  text-shadow:none!important;
+}
+#closing.v121-fade-ending .close-room{
+  margin:0!important;
+  font:900 clamp(.56rem,1.1vw,.75rem)/1.35 'Nunito',sans-serif!important;
+  letter-spacing:.07em!important;
+  color:#9f6989!important;
+  text-shadow:0 1px 6px #fff9!important;
+}
+#closing.v121-fade-ending .close-thanks{
+  margin:.02em 0 0!important;
+  padding:0!important;
+  color:#d076a2!important;
+  font-family:'Great Vibes','Dancing Script',cursive!important;
+  font-size:clamp(2.6rem,5.8vw,5rem)!important;
+  font-weight:400!important;
+  line-height:1.05!important;
+  white-space:normal!important;
+  text-shadow:0 2px 9px rgba(255,255,255,.85)!important;
+}
+#closing.v121-fade-ending .close-note{
+  margin:0 auto!important;
+  max-width:470px!important;
+  font:800 clamp(.76rem,1.24vw,.95rem)/1.45 'Nunito',sans-serif!important;
+  color:#8d6780!important;
+  text-shadow:0 1px 5px rgba(255,255,255,.85)!important;
+}
+#closing.v121-fade-ending .close-names{
+  display:block!important;
+  margin:0 auto!important;
+  font:900 clamp(.79rem,1.2vw,1rem)/1.36 'Nunito',sans-serif!important;
+  color:#b16d93!important;
+  letter-spacing:0!important;
+}
+#closing.v121-fade-ending .close-names .couple-script{
+  font:inherit!important;
+  color:inherit!important;
+}
+#closing.v121-fade-ending .close-actions{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  justify-content:center!important;
+  align-items:center!important;
+  margin:.35rem auto 0!important;
+  max-width:100%!important;
+  gap:clamp(4px,1.2vw,9px)!important;
+}
+#closing.v121-fade-ending .close-actions a,
+#closing.v121-fade-ending .close-actions button{
+  min-height:34px!important;
+  padding:.48rem .75rem!important;
+  font:900 clamp(.59rem,1.06vw,.75rem)/1.24 'Nunito',sans-serif!important;
+  border-radius:999px!important;
+  box-shadow:0 5px 14px rgba(147,90,125,.11)!important;
+}
+#closing.v121-fade-ending .closing-teddy-pair,
+#closing.v121-fade-ending .close-signoff{display:none!important}
+
+/* Tablet: centered lower safe area, without clipping any letters. */
+@media(min-width:600px) and (max-width:1099px){
+  #hero.v121-safe-hero .hero-card{
+    position:absolute!important;
+    top:auto!important;
+    left:50%!important;
+    right:auto!important;
+    bottom:clamp(110px,13svh,150px)!important;
+    transform:translateX(-50%)!important;
+    width:min(86vw,610px)!important;
+    max-width:calc(100vw - 56px)!important;
+    margin:0!important;
+    padding:0 10px!important;
+    text-align:center!important;
+    box-sizing:border-box!important;
+  }
+  #hero.v121-safe-hero .hero-title{
+    width:100%!important;
+    max-width:100%!important;
+    text-align:center!important;
+    margin:0 auto!important;
+  }
+  #hero.v121-safe-hero .hero-title .hero-name{
+    font-size:clamp(3.45rem,7.8vw,5.5rem)!important;
+    line-height:.94!important;
+    white-space:normal!important;
+    overflow-wrap:normal!important;
+  }
+  #hero.v121-safe-hero .hero-title .hero-ampersand{
+    font-size:clamp(2rem,5vw,3.5rem)!important;
+    line-height:.85!important;
+    margin:.02em auto!important;
+    justify-content:center!important;
+    padding:0!important;
+  }
+  #hero.v121-safe-hero .hero-kicker{
+    justify-content:center!important;
+    margin:0 auto .36rem!important;
+    font-size:clamp(.57rem,.95vw,.74rem)!important;
+  }
+  #hero.v121-safe-hero .hero-date-line{
+    justify-content:center!important;
+    margin:.66rem auto 0!important;
+    font-size:clamp(.63rem,1.2vw,.78rem)!important;
+    letter-spacing:.20em!important;
+  }
+  #hero.v121-safe-hero .hero-desc{
+    max-width:min(100%,490px)!important;
+    margin:.55rem auto 0!important;
+    font-size:clamp(.94rem,1.45vw,1.12rem)!important;
+    line-height:1.42!important;
+    text-align:center!important;
+  }
+}
+/* Desktop: a compact editorial title block placed entirely INSIDE the
+   lower-left photo safe zone; never extends beyond the viewport. */
+@media(min-width:1100px){
+  #hero.v121-safe-hero .hero-card{
+    position:absolute!important;
+    top:auto!important;
+    left:clamp(50px,8.5vw,150px)!important;
+    right:auto!important;
+    bottom:clamp(112px,13svh,158px)!important;
+    transform:none!important;
+    width:min(510px,46vw)!important;
+    max-width:calc(100vw - 100px)!important;
+    min-width:0!important;
+    margin:0!important;
+    padding:0!important;
+    box-sizing:border-box!important;
+    text-align:left!important;
+  }
+  #hero.v121-safe-hero .hero-title{
+    width:100%!important;
+    max-width:100%!important;
+    margin:0!important;
+    text-align:left!important;
+  }
+  #hero.v121-safe-hero .hero-title .hero-name{
+    display:block!important;
+    font-size:clamp(3.6rem,6.25vw,5.45rem)!important;
+    line-height:.96!important;
+    white-space:normal!important;
+    letter-spacing:-.025em!important;
+  }
+  #hero.v121-safe-hero .hero-title .hero-ampersand{
+    justify-content:flex-start!important;
+    font-size:clamp(2.5rem,3.7vw,3.6rem)!important;
+    line-height:.78!important;
+    margin:0 auto 0 0!important;
+    padding-left:1rem!important;
+  }
+  #hero.v121-safe-hero .hero-kicker{
+    justify-content:flex-start!important;
+    margin:0 0 .40rem!important;
+    font-size:clamp(.57rem,.8vw,.74rem)!important;
+    letter-spacing:.19em!important;
+  }
+  #hero.v121-safe-hero .hero-date-line{
+    justify-content:flex-start!important;
+    margin:.73rem 0 0!important;
+    font-size:clamp(.66rem,1vw,.83rem)!important;
+    letter-spacing:.24em!important;
+  }
+  #hero.v121-safe-hero .hero-desc{
+    width:100%!important;
+    max-width:490px!important;
+    margin:.58rem 0 0!important;
+    font-size:clamp(.93rem,1.2vw,1.12rem)!important;
+    line-height:1.42!important;
+    text-align:left!important;
+  }
+}
+/* Low-height tablets and landscape laptops still have all lettering visible. */
+@media(min-width:600px) and (max-height:730px){
+  #hero.v121-safe-hero .hero-card{bottom:clamp(73px,10svh,98px)!important}
+  #hero.v121-safe-hero .hero-title .hero-name{font-size:clamp(2.6rem,6.2vw,4.3rem)!important;line-height:.91!important}
+  #hero.v121-safe-hero .hero-title .hero-ampersand{font-size:clamp(1.9rem,3.1vw,2.6rem)!important}
+  #hero.v121-safe-hero .hero-kicker{margin-bottom:.18rem!important}
+  #hero.v121-safe-hero .hero-date-line{margin-top:.37rem!important}
+  #hero.v121-safe-hero .hero-desc{margin-top:.32rem!important;font-size:clamp(.83rem,1.25vw,.98rem)!important;line-height:1.28!important}
+}
+/* Mobile stays edge-to-edge; thank-you copy moves upward, fully inside the
+   red-marked lower-half region, with breathing room for the fixed wish bar. */
+@media(max-width:599px){
+  #closing.v121-fade-ending .close-content{
+    width:calc(100% - 26px)!important;
+    max-width:420px!important;
+    bottom:clamp(131px,19svh,205px)!important;
+    gap:2px!important;
+  }
+  #closing.v121-fade-ending .close-thanks{
+    font-size:clamp(2.6rem,10.8vw,3.7rem)!important;
+    line-height:1.07!important;
+  }
+  #closing.v121-fade-ending .close-note{
+    max-width:320px!important;
+    font-size:clamp(.69rem,2.8vw,.83rem)!important;
+    line-height:1.36!important;
+  }
+  #closing.v121-fade-ending .close-names{font-size:clamp(.73rem,2.6vw,.9rem)!important}
+  #closing.v121-fade-ending .close-actions{gap:5px!important;margin-top:.4rem!important}
+  #closing.v121-fade-ending .close-actions a,
+  #closing.v121-fade-ending .close-actions button{
+    padding:.46rem .59rem!important;
+    font-size:clamp(.56rem,2.22vw,.67rem)!important;
+    min-height:32px!important;
+  }
+}
+@media(max-height:650px){
+  #closing.v121-fade-ending .close-content{bottom:clamp(82px,15svh,105px)!important}
+  #closing.v121-fade-ending .close-thanks{font-size:clamp(2.3rem,6vw,3.5rem)!important}
+  #closing.v121-fade-ending .close-note{line-height:1.3!important}
+}
+@media(prefers-reduced-motion:reduce){
+  #hero.v121-safe-hero .hero-photo-layer .hero-slide{animation:none!important}
+}
+
+
+/* =====================================================================
+   AAC WEDDING V12.2 · LARGE CLOSING LETTERING / BLUSH RISE
+   Changes only the closing scene. Other sections are preserved.
+   ===================================================================== */
+#closing.v121-fade-ending .close-filter {
+  /* Subtle blush moves continuously from clear portrait into a soft paper-like base. */
+  background: linear-gradient(180deg,
+    rgba(255,246,250,0) 0%,
+    rgba(255,246,250,0) 28%,
+    rgba(255,236,246,.08) 38%,
+    rgba(255,232,243,.25) 50%,
+    rgba(255,227,240,.55) 64%,
+    rgba(255,239,247,.84) 80%,
+    rgba(255,247,251,.97) 100%) !important;
+}
+#closing.v121-fade-ending .close-content {
+  width:min(calc(100% - 28px),960px)!important;
+  max-width:960px!important;
+  bottom:clamp(110px,14svh,162px)!important;
+  gap:clamp(1px,.35svh,5px)!important;
+}
+#closing.v121-fade-ending .close-thanks {
+  width:100%!important;
+  margin:.10rem auto .25rem!important;
+  font-family:'Great Vibes','Dancing Script',cursive!important;
+  /* 2.5x the previous desktop/tablet lettering, split over two lines. */
+  font-size:clamp(6.5rem,14.5vw,12.5rem)!important;
+  line-height:.82!important;
+  font-weight:400!important;
+  letter-spacing:0!important;
+  color:#d075a4!important;
+  text-align:center!important;
+  text-shadow:0 3px 12px rgba(255,250,254,.88),0 7px 24px rgba(141,69,109,.13)!important;
+  overflow:visible!important;
+}
+#closing.v121-fade-ending .close-thanks-line {
+  display:block!important;
+  width:100%!important;
+  white-space:nowrap!important;
+  padding:.035em 0!important;
+}
+#closing.v121-fade-ending .close-thanks-heart {
+  display:inline-block!important;
+  font-family:Georgia,serif!important;
+  font-size:.48em!important;
+  font-weight:400!important;
+  vertical-align:.18em!important;
+  color:#e68bb7!important;
+}
+#closing.v121-fade-ending .close-note {
+  margin:.25rem auto .07rem!important;
+}
+#closing.v121-fade-ending .close-actions {
+  margin-top:.45rem!important;
+}
+@media (max-width:599px) {
+  #closing.v121-fade-ending .close-content {
+    width:calc(100% - 20px)!important;
+    max-width:460px!important;
+    bottom:clamp(115px,17.5svh,178px)!important;
+  }
+  #closing.v121-fade-ending .close-thanks {
+    /* 2.5x the former ~11vw lettering (with a screen-safe cap). */
+    font-size:clamp(6.45rem,27vw,9.25rem)!important;
+    line-height:.80!important;
+    margin:.05rem auto .28rem!important;
+  }
+  #closing.v121-fade-ending .close-thanks-line {padding:.035em 0!important}
+  #closing.v121-fade-ending .close-room {font-size:clamp(.53rem,2.15vw,.7rem)!important}
+  #closing.v121-fade-ending .close-note {font-size:clamp(.7rem,2.5vw,.87rem)!important}
+  #closing.v121-fade-ending .close-names {font-size:clamp(.74rem,2.55vw,.9rem)!important}
+}
+@media (max-height:690px) {
+  #closing.v121-fade-ending .close-content {
+    bottom:clamp(75px,14svh,112px)!important;
+  }
+  #closing.v121-fade-ending .close-thanks {
+    font-size:clamp(5rem,22vw,8.6rem)!important;
+    line-height:.77!important;
+  }
+}
+@media (min-width:600px) and (max-height:750px) {
+  #closing.v121-fade-ending .close-content {bottom:clamp(66px,10svh,95px)!important}
+  #closing.v121-fade-ending .close-thanks {font-size:clamp(6.5rem,10.5vw,10rem)!important}
+}
+@media (prefers-reduced-motion:reduce) {
+  #closing.v121-fade-ending .close-thanks-line {animation:none!important}
+}
+
+
+
+/* ======================================================================
+   AAC V12.3 — HALF-PORTRAIT FADE + ORIGINAL HANDWRITTEN THANK-YOU
+   Actual image above 48% is fully clear. Below that point, softness
+   gently increases toward the bottom; no flat milky full-frame overlay.
+   No other scenes are changed.
+   ====================================================================== */
+#closing.v123-half-fade{
+  position:relative!important;
+  isolation:isolate!important;
+  height:100svh!important;
+  min-height:0!important;
+  aspect-ratio:auto!important;
+  overflow:hidden!important;
+  padding:0!important;
+  background:#efe4e9!important;
+}
+#closing.v123-half-fade .close-bg{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center 29%!important;
+  filter:none!important;
+  opacity:1!important;
+  z-index:0!important;
+}
+#closing.v123-half-fade .close-filter{
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:1!important;
+  opacity:1!important;
+  filter:none!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  pointer-events:none!important;
+  /* Clear to halfway down, then a continuous blush-to-ivory fade. */
+  background:linear-gradient(180deg,
+    rgba(255,250,253,0) 0%,
+    rgba(255,250,253,0) 46%,
+    rgba(255,246,250,.05) 54%,
+    rgba(255,239,247,.20) 64%,
+    rgba(255,239,248,.42) 74%,
+    rgba(255,243,250,.66) 86%,
+    rgba(255,248,252,.88) 100%)!important;
+}
+/* A gentle real blur on the bottom half only, softly masked at the top. */
+@supports ((-webkit-backdrop-filter:blur(2px)) or (backdrop-filter:blur(2px))){
+  #closing.v123-half-fade .close-filter::after{
+    content:''!important;
+    display:block!important;
+    position:absolute!important;
+    inset:48% 0 0!important;
+    pointer-events:none!important;
+    background:transparent!important;
+    -webkit-backdrop-filter:blur(3px)!important;
+    backdrop-filter:blur(3px)!important;
+    -webkit-mask-image:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.14) 18%,rgba(0,0,0,.55) 55%,#000 100%)!important;
+    mask-image:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.14) 18%,rgba(0,0,0,.55) 55%,#000 100%)!important;
+    opacity:.68!important;
+  }
+}
+#closing.v123-half-fade .close-content{
+  position:absolute!important;
+  left:50%!important;
+  right:auto!important;
+  top:auto!important;
+  bottom:clamp(103px,14svh,145px)!important;
+  transform:translateX(-50%)!important;
+  z-index:4!important;
+  width:min(calc(100% - 30px),760px)!important;
+  max-width:760px!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:clamp(3px,.44svh,8px)!important;
+  text-align:center!important;
+  overflow:visible!important;
+  text-shadow:none!important;
+}
+#closing.v123-half-fade .close-room{
+  margin:0 0 .20rem!important;
+  font:900 clamp(.58rem,1.1vw,.76rem)/1.30 'Nunito','Segoe UI',sans-serif!important;
+  letter-spacing:.11em!important;
+  color:#a46c8c!important;
+  text-shadow:0 1px 7px rgba(255,255,255,.88)!important;
+}
+#closing.v123-half-fade .close-thanks{
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  margin:.08rem auto .16rem!important;
+  padding:0!important;
+  color:#c976a1!important;
+  font-family:'Great Vibes','Dancing Script','Segoe Script','Brush Script MT','Apple Chancery',cursive!important;
+  font-weight:400!important;
+  font-style:normal!important;
+  font-size:clamp(5.7rem,9vw,9rem)!important;
+  line-height:.88!important;
+  letter-spacing:0!important;
+  text-align:center!important;
+  text-shadow:0 2px 10px rgba(255,255,255,.93),0 4px 17px rgba(138,81,111,.16)!important;
+  overflow:visible!important;
+}
+#closing.v123-half-fade .close-thanks-line{
+  display:block!important;
+  width:100%!important;
+  padding:.035em 0!important;
+  margin:0 auto!important;
+  white-space:nowrap!important;
+  font:inherit!important;
+  line-height:.84!important;
+}
+#closing.v123-half-fade .close-thanks-heart{
+  font-family:Georgia,serif!important;
+  font-size:.42em!important;
+  line-height:0!important;
+  color:#e389b3!important;
+  vertical-align:.16em!important;
+  text-shadow:0 2px 8px #fff!important;
+}
+#closing.v123-half-fade .close-note{
+  max-width:480px!important;
+  margin:.18rem auto .08rem!important;
+  font:800 clamp(.75rem,1.22vw,.99rem)/1.45 'Nunito','Segoe UI',sans-serif!important;
+  color:#856c7d!important;
+  text-shadow:0 1px 7px rgba(255,255,255,.95)!important;
+}
+#closing.v123-half-fade .close-names{
+  display:block!important;
+  margin:.13rem auto .14rem!important;
+  font:400 clamp(1.43rem,2.35vw,2.05rem)/1.12 'Great Vibes','Dancing Script','Segoe Script',cursive!important;
+  color:#d077a0!important;
+  text-shadow:0 2px 9px #fff9!important;
+}
+#closing.v123-half-fade .close-names .couple-script{
+  font-family:inherit!important;
+  font-weight:400!important;
+  font-size:inherit!important;
+  color:inherit!important;
+}
+#closing.v123-half-fade .close-names .couple-amp{color:#d68ab3!important}
+#closing.v123-half-fade .close-actions{
+  width:100%!important;
+  max-width:470px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  flex-wrap:wrap!important;
+  gap:clamp(4px,1vw,9px)!important;
+  margin:.26rem auto 0!important;
+}
+#closing.v123-half-fade .close-actions a,
+#closing.v123-half-fade .close-actions button{
+  border-radius:999px!important;
+  min-height:33px!important;
+  padding:.49rem .70rem!important;
+  font:900 clamp(.59rem,1.07vw,.76rem)/1.2 'Nunito','Segoe UI',sans-serif!important;
+}
+#closing.v123-half-fade .closing-teddy-pair,
+#closing.v123-half-fade .close-signoff{display:none!important}
+@media(max-width:599px){
+  #closing.v123-half-fade .close-content{
+    width:calc(100% - 24px)!important;
+    max-width:420px!important;
+    bottom:clamp(105px,14.2svh,135px)!important;
+    gap:2px!important;
+  }
+  #closing.v123-half-fade .close-room{font-size:clamp(.55rem,2.18vw,.69rem)!important}
+  #closing.v123-half-fade .close-thanks{
+    font-size:clamp(4.75rem,21vw,6.3rem)!important;
+    line-height:.87!important;
+    margin:.10rem auto .12rem!important;
+  }
+  #closing.v123-half-fade .close-note{max-width:330px!important;font-size:clamp(.72rem,2.8vw,.88rem)!important;line-height:1.37!important}
+  #closing.v123-half-fade .close-names{font-size:clamp(1.37rem,5vw,1.75rem)!important}
+  #closing.v123-half-fade .close-actions{gap:4px!important}
+  #closing.v123-half-fade .close-actions a,#closing.v123-half-fade .close-actions button{
+    padding:.44rem .55rem!important;min-height:31px!important;font-size:clamp(.55rem,2.1vw,.66rem)!important;
+  }
+}
+@media(max-height:720px){
+  #closing.v123-half-fade .close-content{bottom:clamp(76px,13.2svh,105px)!important}
+  #closing.v123-half-fade .close-thanks{font-size:clamp(4rem,15vw,6rem)!important;line-height:.82!important}
+  #closing.v123-half-fade .close-room{font-size:.58rem!important}
+  #closing.v123-half-fade .close-note{font-size:.73rem!important;line-height:1.30!important}
+  #closing.v123-half-fade .close-names{font-size:1.40rem!important}
+}
+@media(min-width:600px) and (max-width:1099px){
+  #closing.v123-half-fade .close-thanks{font-size:clamp(6rem,12vw,8.3rem)!important}
+  #closing.v123-half-fade .close-content{bottom:clamp(97px,12svh,148px)!important}
+}
+@media(prefers-reduced-motion:reduce){
+  #closing.v123-half-fade .close-filter::after{display:none!important}
+}
+
+
+
+/* =====================================================================
+   AAC WEDDING V12.4 | VISIBLE SOFT BLUR + TRANSPARENT PASTEL PINK
+   A second end.webp is actually blurred, then gradient-masked in from 27%.
+   Reliable on Chrome Android / Safari / desktop; text stays completely sharp.
+   ===================================================================== */
+#closing.v124-visible-softfade{
+  isolation:isolate!important;
+  overflow:hidden!important;
+}
+/* Real blur — a masked duplicate of end.webp, not an unreliable
+   backdrop-filter applied over a translucent pseudo-element. */
+#closing.v124-visible-softfade .close-bg-blurred{
+  position:absolute!important;
+  inset:0!important;
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center 29%!important;
+  z-index:1!important;
+  pointer-events:none!important;
+  opacity:1!important;
+  filter:blur(12px) saturate(.98)!important;
+  transform:scale(1.025)!important;
+  transform-origin:center center!important;
+  -webkit-mask-image:linear-gradient(to bottom,
+     transparent 0%,
+     transparent 27%,
+     rgba(0,0,0,.12) 36%,
+     rgba(0,0,0,.42) 48%,
+     rgba(0,0,0,.77) 63%,
+     #000 83%,
+     #000 100%)!important;
+  mask-image:linear-gradient(to bottom,
+     transparent 0%,
+     transparent 27%,
+     rgba(0,0,0,.12) 36%,
+     rgba(0,0,0,.42) 48%,
+     rgba(0,0,0,.77) 63%,
+     #000 83%,
+     #000 100%)!important;
+}
+/* Thin, almost-transparent rose tint: 0 above 27%, up to 27% at bottom. */
+#closing.v124-visible-softfade .close-filter{
+  z-index:2!important;
+  display:block!important;
+  opacity:1!important;
+  background:linear-gradient(to bottom,
+      rgba(255,224,237,0) 0%,
+      rgba(255,224,237,0) 27%,
+      rgba(255,224,237,.035) 40%,
+      rgba(255,224,237,.085) 54%,
+      rgba(255,226,240,.14) 68%,
+      rgba(255,229,243,.20) 84%,
+      rgba(255,234,246,.27) 100%)!important;
+  filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+}
+#closing.v124-visible-softfade .close-filter::after{
+  content:none!important;
+  display:none!important;
+}
+#closing.v124-visible-softfade .close-content{
+  z-index:5!important;
+}
+
 </style>
 </head>
-<body>
+<body data-side="NhaTrai">
 <svg class="kawaii-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden">
   <defs>
     <symbol id="lovely-balloon" viewBox="0 0 98 153">
@@ -5382,11 +6209,11 @@ button,input,textarea{font-size:16px}
   </div>
 </div>
 
-<audio id="audio" loop preload="auto"><source src="nhac.mp3" type="audio/mpeg"/></audio>
+<audio id="audio" loop preload="none"><source src="nhac.mp3" type="audio/mpeg"/></audio>
 <div id="heartLayer"></div>
 
 <div id="app">
-  <section id="hero" class="sec">
+  <section id="hero" class="sec v121-safe-hero">
     <div class="hero-photo-layer" aria-hidden="true">
       <img id="heroSlideA" class="hero-slide is-active motion-1" src="1.webp" alt="" decoding="async" fetchpriority="high"/>
       <img id="heroSlideB" class="hero-slide" alt="" decoding="async"/>
@@ -5576,7 +6403,7 @@ button,input,textarea{font-size:16px}
           <h2 class="cer-title">Tiệc cưới <em>Nhà Trai</em></h2>
           <div class="cer-row"><div class="cer-ico">◷</div><div><b id="groomEventDate">Chủ Nhật, 29/11/2026 · 21/10 âm lịch</b><span id="groomEventTime">Đón khách lúc 10:00 sáng</span></div></div>
           <div class="cer-row"><div class="cer-ico">⌖</div><div><b>Nhà Trai · <span class="couple-script cer-couple-name">Nguyễn Nam</span></b><span>Nhà văn hóa Mi Điền 2 - Phường Nếnh - Bắc Ninh</span></div></div>
-          <div class="cer-actions"><a href="https://www.google.com/maps/search/?api=1&amp;query=Nh%C3%A0%20v%C4%83n%20h%C3%B3a%20Mi%20%C4%90i%E1%BB%81n%202%20-%20Ph%C6%B0%E1%BB%9Dng%20N%E1%BA%BFnh%20-%20B%E1%BA%AFc%20Ninh" target="_blank" rel="noopener">⌖ &nbsp; Chỉ đường</a><a href="#" id="calGroom">＋ &nbsp; Thêm lịch</a></div>
+          <div class="cer-actions"><a href="https://maps.app.goo.gl/MuiDn9NTSsdfWga48" target="_blank" rel="noopener">⌖ &nbsp; Chỉ đường</a><a href="#" id="calGroom">＋ &nbsp; Thêm lịch</a></div>
         </div>
       </article>
 
@@ -5587,7 +6414,7 @@ button,input,textarea{font-size:16px}
           <h2 class="cer-title">Tiệc cưới <em>Nhà Gái</em></h2>
           <div class="cer-row"><div class="cer-ico">◷</div><div><b id="brideEventDate">Chủ Nhật, 29/11/2026 · 21/10 âm lịch</b><span id="brideEventTime">Đón khách lúc 10:00 sáng</span></div></div>
           <div class="cer-row"><div class="cer-ico">⌖</div><div><b>Nhà Gái · <span class="couple-script cer-couple-name">Thân Hiền</span></b><span>Giếng Đông TDP Phúc Long - Phường Nếnh - Bắc Ninh</span></div></div>
-          <div class="cer-actions"><a href="https://www.google.com/maps/search/?api=1&amp;query=Gi%E1%BA%BFng%20%C4%90%C3%B4ng%20TDP%20Ph%C3%BAc%20Long%20-%20Ph%C6%B0%E1%BB%9Dng%20N%E1%BA%BFnh%20-%20B%E1%BA%AFc%20Ninh" target="_blank" rel="noopener">⌖ &nbsp; Chỉ đường</a><a href="#" id="calBride">＋ &nbsp; Thêm lịch</a></div>
+          <div class="cer-actions"><a href="https://maps.app.goo.gl/HWuqDDTS7aa21NMm9" target="_blank" rel="noopener">⌖ &nbsp; Chỉ đường</a><a href="#" id="calBride">＋ &nbsp; Thêm lịch</a></div>
         </div>
       </article>
     </div>
@@ -5791,31 +6618,26 @@ button,input,textarea{font-size:16px}
     <span class="room-script" data-reveal data-delay="2">Phong bì yêu thương</span>
     <p class="room-sub" data-reveal data-delay="3">Bạn đến chung vui đã là món quà tuyệt vời rồi! Nếu muốn gửi chút yêu thương, tụi mình để hai chiếc phong bì nhỏ ở đây nhé. 💗</p>
     <div class="gift-cuddle" aria-hidden="true"><svg aria-hidden="true" focusable="false" class="kawaii-character kawaii--lavender"><use href="#kawaii-bunny"></use></svg><span>Bạn đến là tụi mình vui lắm rồi ♡</span></div>
-    <div class="gift-grid" data-reveal data-delay="4">
-      <article class="gift-person" id="giftBride">
-        <div class="gift-module" aria-hidden="true">LOVE ENVELOPE <span>◈</span></div>
-        <small>Cô dâu</small>
-        <h3 class="couple-script">Thân Hiền</h3>
-        <button class="gift-toggle" type="button" data-qr="qr_than_hien.webp" data-person="Cô dâu Thân Hiền" data-note="Quét mã QR để gửi quà mừng tới cô dâu Thân Hiền">Xem mã quà mừng &nbsp; ↗</button>
-        <p class="gift-hint">Mã QR sẽ chỉ xuất hiện khi bạn chạm mở.</p>
-      </article>
+    
       <article class="gift-person" id="giftGroom">
         <div class="gift-module" aria-hidden="true">LOVE ENVELOPE <span>◈</span></div>
         <small>Chú rể</small>
         <h3 class="couple-script">Nguyễn Nam</h3>
-        <button class="gift-toggle" type="button" data-qr="qr_nguyen_nam.webp" data-person="Chú rể Nguyễn Nam" data-note="Quét mã QR để gửi quà mừng tới chú rể Nguyễn Nam">Xem mã quà mừng &nbsp; ↗</button>
+        <button class="gift-toggle" type="button" data-qr="qrcr.webp" data-person="Chú rể Nguyễn Nam" data-note="Quét mã QR để gửi quà mừng tới chú rể Nguyễn Nam">Xem mã quà mừng &nbsp; ↗</button>
         <p class="gift-hint">Mã QR sẽ chỉ xuất hiện khi bạn chạm mở.</p>
       </article>
-    </div>
+   
   </section>
 
-  <section id="closing" class="sec">
-    <img class="close-bg" src="hero.webp" alt="Thank you" loading="lazy" decoding="async"/>
+  <section id="closing" class="sec v121-fade-ending v123-half-fade v124-visible-softfade">
+    <img class="close-bg" src="end.webp" alt="Thank you" loading="lazy" decoding="async"/>
+    <!-- Lớp ảnh nhòe riêng cho vùng dưới (không phụ thuộc backdrop-filter trên Android) -->
+    <img class="close-bg-blurred" src="end.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"/>
     <div class="close-filter"></div>
     <div class="close-content">
       <div class="close-room" id="closingEventDate" data-reveal>Hẹn gặp bạn · 10:00 sáng · 29.11.2026</div>
-      <div class="close-thanks" data-reveal data-delay="1">Cảm ơn bạn ♡</div>
-      <p class="close-note" data-reveal data-delay="2">Mỗi câu chuyện đẹp đều cần những người thương bên cạnh.<br/>Cảm ơn bạn đã là một phần trong hành trình yêu thương của chúng mình.</p>
+      <div class="close-thanks" data-reveal data-delay="1" aria-label="Cảm ơn bạn"><span class="close-thanks-line">Cảm ơn</span><span class="close-thanks-line">bạn <span class="close-thanks-heart" aria-hidden="true">♡</span></span></div>
+      <p class="close-note" data-reveal data-delay="2">Thật vui vì có bạn trong ngày đặc biệt của chúng mình! ♡</p>
       <div class="close-names" data-reveal data-delay="2"><span class="couple-script">Nguyễn Nam</span> <span class="couple-amp">&amp;</span> <span class="couple-script">Thân Hiền</span></div>
       <div class="closing-teddy-pair" aria-hidden="true"><svg aria-hidden="true" focusable="false" class="kawaii-character kawaii--cocoa"><use href="#kawaii-bear"></use></svg><svg aria-hidden="true" focusable="false" class="kawaii-character kawaii--milk"><use href="#kawaii-bear"></use></svg><span>hugs & kisses ♡</span></div>
       <div class="close-actions" data-reveal data-delay="3">
@@ -5830,7 +6652,7 @@ button,input,textarea{font-size:16px}
 
 <div id="live"></div>
 <div id="bar">
-  <div class="quick-guest" id="quickGuest" title="Tên lấy từ ?guest=...">Quý Khách</div>
+  <div class="quick-guest" id="quickGuest" title="Có thể dùng ?event=28&guest=Ten-Khach, hoặc chỉ ?event=28">Quý Khách</div>
   <input id="quickWish" placeholder="Gửi lời chúc nhanh..."/>
   <button id="sendQuick">Gửi</button>
   <button id="heartBtn">♡</button>
@@ -5850,11 +6672,12 @@ button,input,textarea{font-size:16px}
 </div>
 
 <script>
-// Dán URL Web App sau khi Deploy Google Apps Script vào đây.
+// Dán cùng MỘT URL Web App sau khi Deploy Code.gs từ Google Sheet có hai tab NhaTrai / NhaGai.
 // Lưu ý: phải dùng Google Apps Script của cặp đôi này, không sử dụng đường dẫn cũ.
-const GOOGLE_SCRIPT_URL=''; // ĐIỀN URL Google Apps Script RIÊNG cho cặp đôi này trước khi mở đồng bộ lời chúc.
+const GOOGLE_SCRIPT_URL='https://script.google.com/macros/s/AKfycbw9hHnvehYsLpuAdBTV35mE_P36kDahDVlCJuPWSH86bBGeRJcg6PXdPXOAVwkGqc1DqA/exec'; // DÁN URL https://script.google.com/macros/s/.../exec VÀO GIỮA HAI DẤU NHÁY.
+const WEDDING_SIDE='NhaTrai'; // Chỉ nhận dữ liệu tab NhaTrai trong Google Sheet.
 
-// Ngày cưới mới: 29/11/2026. Link cá nhân hóa: ?guest=Ten-Khach-Moi
+// Link nhà gái: ?event=28&guest=Ten-Khach hoặc ?event=29 (không tên). Nhà trai: ?event=29&guest=Ten-Khach.
 // Giờ đón khách: 10:00 sáng (Việt Nam); âm lịch do gia đình cung cấp: 21/10/2026.
 const EVENT_CONFIG={
   '29':{
@@ -5876,7 +6699,7 @@ const EVENT_CONFIG={
 const params=new URLSearchParams(location.search);
 // Khi mở bằng file://, lưu lời chúc ở thiết bị để tránh gửi dữ liệu lên trang thật.
 const LOCAL_PREVIEW_ONLY=location.protocol==='file:';
-const LOCAL_PREVIEW_WISHES='nguyen_nam_than_hien_local_preview_wishes_v1';
+const LOCAL_PREVIEW_WISHES='aac_wedding_v125_preview_NhaTrai';
 const eventRaw=(params.get('event')||'29').trim();
 const eventKey=EVENT_CONFIG[eventRaw]?eventRaw:'29';
 const EVENT=EVENT_CONFIG[eventKey];
@@ -5885,47 +6708,123 @@ const audio=document.getElementById('audio');
 let playing=false;
 
 /* Guest name */
-const guestParamRaw=(params.get('guest')||'').trim();
-// Cho phép dùng URL gọn như ?guest=Bạn-Nguyễn-Nam hoặc ?guest=Bạn_Nguyễn_Nam
-// nhưng khi hiển thị/lưu RSVP sẽ tự chuyển thành "Bạn Nguyễn Nam".
+// guest= là tùy chọn; hỗ trợ Guest= và lỗi gõ thường gặp guset=.
+// Ưu tiên guest= nếu có cả hai. Không có tên -> hiện "Quý Khách".
+function readGuestParameter(searchParams){
+  let typoValue='';
+  for(const [key,value] of searchParams.entries()){
+    const lower=key.toLowerCase();
+    if(lower==='guest' && value.trim())return value;
+    if(lower==='guset' && value.trim() && !typoValue)typoValue=value;
+  }
+  return typoValue;
+}
+const guestParamRaw=readGuestParameter(params);
+// Chuẩn link: ?event=28&guest=Ten-Khach. guest luôn ở cuối và có thể bỏ hẳn.
+// Các tham số khác (nếu có) được giữ ở giữa event và guest.
+function weddingInvitationUrl(nextEvent, rawGuest){
+  const url=new URL(window.location.href);
+  const extras=new URLSearchParams();
+  for(const [key,value] of url.searchParams.entries()){
+    if(!['event','guest','guset'].includes(key.toLowerCase()))extras.append(key,value);
+  }
+  const ordered=new URLSearchParams();
+  ordered.set('event',nextEvent);
+  for(const [key,value] of extras.entries())ordered.append(key,value);
+  if(rawGuest && rawGuest.trim())ordered.set('guest',rawGuest.trim());
+  url.search=ordered.toString();
+  return url;
+}
+// Link cũ ?guest=...&event=... vẫn hoạt động và được sắp lại trên thanh địa chỉ.
+// Không ép thêm query cho URL gốc sạch không có tham số nào.
+if(window.location.search){
+  const canonical=weddingInvitationUrl(eventKey,guestParamRaw);
+  if(canonical.search!==window.location.search){
+    try{window.history.replaceState(window.history.state,'',canonical.href)}catch(_){/* file:// preview */}
+  }
+}
+
+// Giữ dấu tiếng Việt, đổi dấu gạch trong link thành khoảng trắng.
+// Tên khách được đưa vào giao diện bằng textContent, không chèn HTML.
 const guestParam=guestParamRaw
+  .normalize('NFC')
+  .replace(/[<>\u0000-\u001F\u007F]/g,'')
   .replace(/[-_]+/g,' ')
   .replace(/\s+/g,' ')
-  .trim();
+  .trim()
+  .slice(0,100);
 const guest=guestParam||'Quý Khách';
 document.getElementById('guestName').textContent=guest;
-if(guestParam)document.title=`Thiệp mời gửi ${guest} · Nguyễn Nam & Thân Hiền`;
+document.title=guestParam?`Trân trọng kính mời ${guest} · ${EVENT.dateDot} ♡`:`Trân trọng kính mời bạn · ${EVENT.dateDot} ♡`;
 
 const rname=document.getElementById('rname');
-rname.value=guest;
-rname.readOnly=true;
-rname.setAttribute('aria-readonly','true');
-rname.setAttribute('title','Tên khách mời được điền sẵn');
+rname.value=guestParam?guest:'';
+rname.readOnly=Boolean(guestParam);
+rname.setAttribute('aria-readonly',String(Boolean(guestParam)));
+rname.setAttribute('title',guestParam?'Tên khách mời đã điền sẵn':'Vui lòng nhập tên khách mời');
+if(!guestParam)rname.placeholder='Họ và tên khách mời';
 document.getElementById('quickGuest').textContent=guest;
 document.getElementById('quickWish').placeholder='Gửi lời chúc nhanh tới Nguyễn Nam & Thân Hiền...';
-const metaOgDesc=document.querySelector('meta[property="og:description"]');
-if(metaOgDesc)metaOgDesc.setAttribute('content',`Trân trọng kính mời ${guest} tới chung vui cùng Nguyễn Nam & Thân Hiền`);
-const metaDesc=document.querySelector('meta[name="description"]');
-if(metaDesc)metaDesc.setAttribute('content',`Trân trọng kính mời ${guest} tới chung vui cùng Nguyễn Nam & Thân Hiền`);
+// Meta cập nhật ở trình duyệt chỉ giúp tiện theo dõi; khi chia sẻ qua
+// Messenger/Zalo, Cloudflare Worker trả về sẵn OG cho từng Guest.
+const shareDescription=guestParam
+  ? `Trân trọng kính mời ${guest} tới chung vui cùng chúng mình vào ngày ${EVENT.dateDot} ♡`
+  : `Trân trọng kính mời bạn tới chung vui cùng chúng mình vào ngày ${EVENT.dateDot} ♡`;
+const shareTitle=guestParam
+  ? `Trân trọng kính mời ${guest} · ${EVENT.dateDot} ♡`
+  : `Trân trọng kính mời bạn · ${EVENT.dateDot} ♡`;
+for(const selector of ['meta[property="og:description"]','meta[name="description"]','meta[name="twitter:description"]']){
+  const el=document.querySelector(selector);if(el)el.setAttribute('content',shareDescription);
+}
+for(const selector of ['meta[property="og:title"]','meta[name="twitter:title"]']){
+  const el=document.querySelector(selector);if(el)el.setAttribute('content',shareTitle);
+}
 
-/* Đồng bộ duy nhất ngày cưới mới qua toàn bộ các Room. */
+/* AAC V12.5: Đồng bộ ngày / giờ mời ở tất cả vị trí từ ?event=. */
 function applyEventDetails(){
   const setText=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value};
-  setText('doorEventDate','Chủ Nhật · 29 · 11 · 2026');
-  setText('heroDateLine','29 · 11 · 2026');
+  const displayTime=EVENT.timeLabel||EVENT.time;
+  const weekdayUpper=EVENT.weekday.toLocaleUpperCase('vi-VN');
+  setText('doorEventDate',`${EVENT.weekday} · ${EVENT.day} · ${EVENT.month} · ${EVENT.year} · ${displayTime}`);
+  setText('heroDateLine',`${EVENT.day} · ${EVENT.month} · ${EVENT.year}`);
   const card=document.getElementById('heroCard');if(card)card.dataset.eventDate=EVENT.heroDate;
   setText('ticketCode',EVENT.ticketCode+' · LOVE LETTER');
   setText('ticketDate',EVENT.dateDot);
-  setText('ticketTime',EVENT.time);
-  setText('dateRoomText','Chủ Nhật, 29/11/2026 · 10:00 sáng (âm lịch 21/10/2026). Tụi mình rất mong được đón bạn đến chung vui! ♡');
+  setText('ticketTime',displayTime);
+  setText('dateRoomText',`${EVENT.weekday}, ${EVENT.dateSlash} · ${displayTime} (âm lịch ${EVENT.lunar}). Tụi mình rất mong được đón bạn đến chung vui! ♡`);
   setText('groomEventDate','Chủ Nhật, 29/11/2026 · 21/10 âm lịch');
-  setText('brideEventDate','Chủ Nhật, 29/11/2026 · 21/10 âm lịch');
   setText('groomEventTime','Đón khách lúc 10:00 sáng');
-  setText('brideEventTime','Đón khách lúc 10:00 sáng');
-  setText('journeyEventDate',EVENT.dateDot+' · CHỦ NHẬT');
+  setText('brideEventDate',`${EVENT.weekday}, ${EVENT.dateSlash} · ${EVENT.lunar.slice(0,5)} âm lịch`);
+  setText('brideEventTime',`Đón khách lúc ${displayTime}`);
+  setText('journeyEventDate',EVENT.dateDot+' · '+weekdayUpper);
   setText('galleryDate',EVENT.dateDot);
   setText('robotGalleryDate',EVENT.dateDot);
-  setText('closingEventDate','Hẹn gặp bạn · 10:00 sáng · '+EVENT.dateDot);
+  setText('closingEventDate','Hẹn gặp bạn · '+displayTime+' · '+EVENT.dateDot);
+  const lunar=document.querySelector('.ticket-lunar');
+  if(lunar)lunar.textContent='Âm lịch: '+EVENT.lunar;
+  const ticketDay=document.querySelector('.ticket-foot > div:first-child > span');
+  if(ticketDay)ticketDay.textContent=weekdayUpper+' · NGÀY HẠNH PHÚC';
+  const banner=document.querySelector('#dateRoom .date-cute-banner');
+  if(banner){
+    banner.setAttribute('aria-label','Ngày cưới '+EVENT.day+' tháng 11 năm 2026');
+    const strong=banner.querySelector('strong');if(strong)strong.textContent=EVENT.dateDot;
+    const small=banner.querySelector('small');if(small)small.textContent=displayTime+' · '+EVENT.lunar+' âm lịch 💗';
+  }
+  const cal=document.querySelector('#dateRoom .cal-grid');
+  if(cal){
+    cal.setAttribute('aria-label',`Lịch tháng 11 năm 2026, ngày ${EVENT.day} được đánh dấu`);
+    const day29=document.getElementById('calendarWeddingDay');
+    if(day29 && EVENT.key==='28'){
+      const day28=day29.previousElementSibling;
+      day29.classList.remove('mark');day29.removeAttribute('data-mark-label');day29.removeAttribute('id');
+      const heart=day29.querySelector('.day-heart');if(heart)heart.remove();
+      if(day28 && day28.textContent.trim()==='28'){
+        day28.classList.add('mark');day28.dataset.markLabel='NGÀY CƯỚI ♡';
+        day28.id='calendarWeddingDay';
+        const h=document.createElement('span');h.className='day-heart';h.textContent='♥';day28.appendChild(h);
+      }
+    }
+  }
 }
 applyEventDetails();
 
@@ -6100,6 +6999,9 @@ const heroVisibilityObserver=new IntersectionObserver(([entry])=>{
   scheduleHeroSlide();
 },{threshold:.06});
 heroVisibilityObserver.observe(heroRoot);
+// Use one visibility flag to pause expensive effects outside the opening cover.
+const heroPerfObserver=new IntersectionObserver(([entry])=>{document.body.classList.toggle('aac-hero-visible',entry.isIntersecting);},{threshold:0.01});
+heroPerfObserver.observe(heroRoot);
 document.addEventListener('visibilitychange',scheduleHeroSlide);
 if(heroReduceMotion.addEventListener)heroReduceMotion.addEventListener('change',scheduleHeroSlide);
 
@@ -6131,10 +7033,16 @@ document.querySelectorAll('[data-reveal]').forEach(el=>obs.observe(el));
   const prefetch=(idx)=>{
     if(cache.has(idx))return cache.get(idx);
     const p=new Promise(resolve=>{
-      const im=new Image();
-      im.onload=()=>resolve(true);
-      im.onerror=()=>resolve(false);
-      im.src=galleryFiles[idx];
+      const im=new Image();let settled=false;
+      let timer=0;
+      const finish=ok=>{if(settled)return;settled=true;clearTimeout(timer);resolve(ok)};
+      timer=setTimeout(()=>finish(false),6500);
+      im.onload=()=>{
+        if(typeof im.decode==='function')im.decode().then(()=>finish(true)).catch(()=>finish(im.naturalWidth>0));
+        else finish(true);
+      };
+      im.onerror=()=>finish(false);
+      im.decoding='async';im.src=galleryFiles[idx];
     });
     cache.set(idx,p);return p;
   };
@@ -6158,9 +7066,9 @@ document.querySelectorAll('[data-reveal]').forEach(el=>obs.observe(el));
     busy=true;clearTimeout(timer);
     // Decode before animating: the robotic shutter never shows an empty photo.
     const ok=await prefetch(idx);
-    if(!ok){busy=false;photo.alt='Chưa có tệp '+galleryFiles[idx]+' trong thư mục ảnh';ready();return;}
+    if(!ok){busy=false;photo.alt='Chưa có tệp '+galleryFiles[idx]+' trong thư mục ảnh';if(queuedRequest!==null){const pending=queuedRequest;queuedRequest=null;goTo(pending);}else ready();return;}
     root.classList.add('is-transferring');
-    const wait=reduced.matches?0:380;
+    const wait=reduced.matches?0:240;
     setTimeout(()=>{
       photo.src=galleryFiles[idx];
       photo.alt='Album ảnh cưới Nguyễn Nam và Thân Hiền · Kỷ niệm '+String(idx+1).padStart(2,'0');
@@ -6170,15 +7078,14 @@ document.querySelectorAll('[data-reveal]').forEach(el=>obs.observe(el));
       setTimeout(()=>{
         root.classList.remove('is-delivered');busy=false;prefetch((idx+1)%total);ready();
         if(queuedRequest!==null){const request=queuedRequest;queuedRequest=null;goTo(request)}
-      },reduced.matches?0:450);
+      },reduced.matches?0:260);
     },wait);
   }
   document.querySelectorAll('.archive-tile').forEach(tile=>{
     tile.addEventListener('click',()=>{
       const idx=Number(tile.dataset.photoIndex);
       goTo(idx);
-      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){root.scrollIntoView({block:'start',behavior:'instant'})}
-      else root.scrollIntoView({block:'center',behavior:'smooth'});
+      if(!visible)root.scrollIntoView({block:'center',behavior:reduced.matches?'instant':'smooth'});
     });
   });
   document.getElementById('robotNext').addEventListener('click',()=>goTo(current+1));
@@ -6227,18 +7134,20 @@ audio.addEventListener('pause',setMusicState);
 audio.addEventListener('ended',setMusicState);
 setMusicState();
 
-/* Calendar reminder starts at actual welcome time, 10 AM Asia/Ho_Chi_Minh. End is only a 1h reminder slot, not end of wedding. */
+/* Lịch nhắc tại đúng thời gian mời; mỗi sự kiện dài 1h để nhắc, không phải giờ kết thúc tiệc. */
 function calendarUrl(title,description,venue){
   return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(title)+
     '&dates='+EVENT.allDayStart+'/'+EVENT.allDayEnd+'&ctz=Asia%2FHo_Chi_Minh&details='+encodeURIComponent(description)+
     '&location='+encodeURIComponent(venue);
 }
 document.getElementById('calGroom').href=calendarUrl('Tiệc cưới Nhà Trai - Nguyễn Nam & Thân Hiền','Đón khách lúc 10:00 sáng, Chủ Nhật 29/11/2026 (âm lịch 21/10/2026). Lịch nhắc 1 giờ, không phải giờ kết thúc tiệc.', 'Nhà văn hóa Mi Điền 2 - Phường Nếnh - Bắc Ninh');
-document.getElementById('calBride').href=calendarUrl('Tiệc cưới Nhà Gái - Nguyễn Nam & Thân Hiền','Đón khách lúc 10:00 sáng, Chủ Nhật 29/11/2026 (âm lịch 21/10/2026). Lịch nhắc 1 giờ, không phải giờ kết thúc tiệc.', 'Giếng Đông TDP Phúc Long - Phường Nếnh - Bắc Ninh');
+document.getElementById('calBride').href=calendarUrl('Tiệc cưới Nhà Gái - Nguyễn Nam & Thân Hiền',`Đón khách lúc ${EVENT.timeLabel||EVENT.time}, ${EVENT.weekday} ${EVENT.dateSlash} (âm lịch ${EVENT.lunar}). Lịch nhắc 1 giờ, không phải giờ kết thúc tiệc.`, 'Giếng Đông TDP Phúc Long - Phường Nếnh - Bắc Ninh');
 
 /* Journey progress */
 const jp=document.getElementById('journeyProgress');
 const jw=document.getElementById('journeyWrap');
+let journeyVisible=false;
+new IntersectionObserver(([entry])=>{journeyVisible=entry.isIntersecting;if(journeyVisible)scheduleJourneyUpdate();},{rootMargin:'450px 0px'}).observe(jw);
 function updateJourney(){
   const r=jw.getBoundingClientRect();
   const progress=(innerHeight*.65-r.top)/Math.max(r.height,1);
@@ -6246,7 +7155,7 @@ function updateJourney(){
 }
 let journeyFrame=0;
 function scheduleJourneyUpdate(){
-  if(journeyFrame)return;
+  if(!journeyVisible||document.hidden||journeyFrame)return;
   journeyFrame=requestAnimationFrame(()=>{journeyFrame=0;updateJourney()});
 }
 addEventListener('scroll',scheduleJourneyUpdate,{passive:true});
@@ -6269,7 +7178,9 @@ function updateCountdown(){
   if(card)card.classList.toggle('is-complete',finished);
   if(status)status.textContent=finished?'Ngày hạnh phúc đã trở thành một kỷ niệm thật đẹp. ♡':'Mỗi phút trôi qua, chúng mình lại gần ngày hạnh phúc hơn.';
 }
-setInterval(updateCountdown,1000);
+let countdownVisible=false;
+new IntersectionObserver(([e])=>{countdownVisible=e.isIntersecting;if(countdownVisible)updateCountdown();},{rootMargin:'240px 0px'}).observe(document.getElementById('dateRoom'));
+setInterval(()=>{if(countdownVisible&&!document.hidden)updateCountdown()},1000);
 updateCountdown();
 
 /* Gift QR modal */
@@ -6278,20 +7189,32 @@ const qrModalImage=document.getElementById('qrModalImage');
 const qrModalTitle=document.getElementById('qrModalTitle');
 const qrModalNote=document.getElementById('qrModalNote');
 let qrLastTrigger=null;
+let qrLoadSerial=0;
 function openQrModal(btn){
+  const serial=++qrLoadSerial;
   qrLastTrigger=btn;
-  qrModalImage.src=btn.dataset.qr||'';
-  qrModalImage.onerror=()=>{qrModalImage.style.display='none';qrModalNote.textContent='Mã QR đang được cập nhật. Bạn vẫn có thể đến chung vui trực tiếp cùng chúng mình nhé! ♡';};
-  qrModalImage.onload=()=>{qrModalImage.style.display='block';};
+  qrModalImage.onload=()=>{
+    if(serial!==qrLoadSerial||!qrModal.classList.contains('open'))return;
+    qrModalImage.style.display='block';
+  };
+  qrModalImage.onerror=()=>{
+    if(serial!==qrLoadSerial||!qrModal.classList.contains('open'))return;
+    qrModalImage.style.display='none';
+    qrModalNote.textContent='Mã QR đang được cập nhật. Bạn vẫn có thể đến chung vui cùng chúng mình nhé! ♡';
+  };
+  qrModalImage.style.display='none';
   qrModalImage.alt='Mã QR quà mừng '+(btn.dataset.person||'');
   qrModalTitle.textContent=btn.dataset.person||'Quà mừng';
   qrModalNote.textContent=btn.dataset.note||'Quét mã QR bằng ứng dụng ngân hàng.';
   qrModal.classList.add('open');
   qrModal.setAttribute('aria-hidden','false');
   document.body.classList.add('modal-open');
-  setTimeout(()=>document.getElementById('qrClose').focus(),30);
+  qrModalImage.src=btn.dataset.qr||'';
+  setTimeout(()=>{if(serial===qrLoadSerial&&qrModal.classList.contains('open'))document.getElementById('qrClose').focus();},30);
 }
 function closeQrModal(){
+  if(!qrModal.classList.contains('open'))return;
+  ++qrLoadSerial;
   qrModal.classList.remove('open');
   qrModal.setAttribute('aria-hidden','true');
   document.body.classList.remove('modal-open');
@@ -6305,8 +7228,8 @@ qrModal.addEventListener('click',e=>{if(e.target===qrModal)closeQrModal()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&qrModal.classList.contains('open'))closeQrModal()});
 
 /* RSVP + GOOGLE SHEETS · robust read/write sync */
-const WISH_CACHE_KEY='nguyen_nam_than_hien_wishes_cache_v1';
-const WISH_PENDING_KEY='nguyen_nam_than_hien_wishes_pending_v1';
+const WISH_CACHE_KEY='aac_v125_wishes_cache_NhaTrai';
+const WISH_PENDING_KEY='aac_v125_wishes_pending_NhaTrai';
 let wishStore=[];
 let wishLoadPromise=null;
 let liveTimer=null;
@@ -6330,6 +7253,8 @@ function normalizeWish(item){
     wish:String(item.wish||'').trim(),
     attendance:String(item.attendance||'').trim(),
     type:String(item.type||'wish').trim(),
+    eventDate:String(item.eventDate||'').trim(),
+    eventTime:String(item.eventTime||'').trim(),
     createdAt:String(item.createdAt||item.time||'').trim(),
     pending:Boolean(item.pending)
   };
@@ -6370,7 +7295,7 @@ function renderWishList(){
     meta.className='wish-meta';
     const t=formatWishTime(item.createdAt);
     const attendance=item.attendance==='yes'?' · Sẽ tham dự':item.attendance==='no'?' · Gửi lời chúc':'';
-    meta.textContent=(t||'')+attendance+(item.pending?' · Đang đồng bộ...':'');
+    meta.textContent=(t||'')+(WEDDING_SIDE==='NhaGai'&&item.eventDate?' · Mời '+item.eventDate:'')+attendance+(item.pending?' · Đang đồng bộ...':'');
     const badge=document.createElement('span');
     badge.className='wish-type';
     badge.textContent=item.type==='quick'?'Lời chúc nhanh':item.type==='rsvp'?'RSVP':'Lời chúc';
@@ -6424,7 +7349,7 @@ function mergeServerWishes(serverWishes){
   cacheWishes();
 }
 function sheetConfigured(){
-  return GOOGLE_SCRIPT_URL && !GOOGLE_SCRIPT_URL.includes('PASTE_YOUR_');
+  return /^https:\/\/script\.google\.com\/macros\/s\/[^\s]+\/exec(?:[?#].*)?$/.test(GOOGLE_SCRIPT_URL.trim());
 }
 function vietnamTimeISO(){
   const parts=new Intl.DateTimeFormat('sv-SE',{
@@ -6467,7 +7392,7 @@ function fetchJsonp(url,timeout=9000){
 }
 async function requestWishList(){
   const sep=GOOGLE_SCRIPT_URL.includes('?')?'&':'?';
-  const url=GOOGLE_SCRIPT_URL+sep+'action=list&limit=5&_='+Date.now();
+  const url=GOOGLE_SCRIPT_URL+sep+'action=list&side='+encodeURIComponent(WEDDING_SIDE)+'&limit=5&_='+Date.now();
   try{
     return await fetchJson(url,7000);
   }catch(firstError){
@@ -6523,18 +7448,44 @@ async function postWishPayload(payload){
     keepalive:true
   });
 }
-async function flushPendingWishes(){
-  if(LOCAL_PREVIEW_ONLY)return; // Không gửi các hàng đợi lên mạng khi xem trên máy.
-  if(!sheetConfigured()||!navigator.onLine)return;
-  const q=safeLocalGet(WISH_PENDING_KEY,[]);
-  if(!q.length)return;
-  const remaining=[];
-  for(const payload of q){
-    try{await postWishPayload(payload)}
-    catch(_){remaining.push(payload)}
+// POST no-cors chỉ xác nhận trình duyệt đã gửi yêu cầu; dùng API đọc để xác thực lưu thành công.
+async function confirmWishStored(payload){
+  const sep=GOOGLE_SCRIPT_URL.includes('?')?'&':'?';
+  const statusUrl=GOOGLE_SCRIPT_URL+sep+'action=status&side='+encodeURIComponent(payload.side)+
+    '&requestId='+encodeURIComponent(payload.requestId)+'&_='+Date.now();
+  await new Promise(resolve=>setTimeout(resolve,1050));
+  for(let attempt=0;attempt<2;attempt++){
+    try{
+      const answer=await fetchJsonp(statusUrl+'&check='+attempt,9000);
+      if(answer&&answer.ok&&answer.saved)return true;
+    }catch(error){console.info('Chưa đọc được trạng thái Google Sheets:',error)}
+    if(attempt===0)await new Promise(resolve=>setTimeout(resolve,1300));
   }
-  safeLocalSet(WISH_PENDING_KEY,remaining);
-  if(!remaining.length)setTimeout(()=>loadWishes({silent:true}),1600);
+  return false;
+}
+let pendingFlushBusy=false;
+async function flushPendingWishes(){
+  if(LOCAL_PREVIEW_ONLY||!sheetConfigured()||!navigator.onLine||pendingFlushBusy)return;
+  pendingFlushBusy=true;
+  try{
+    const q=safeLocalGet(WISH_PENDING_KEY,[]);
+    if(!q.length)return;
+    const remaining=[];
+    for(const payload of q){
+      if(payload.side!==WEDDING_SIDE)continue;
+      try{
+        // Nếu lần gửi trước đã ghi thành công, không cần gửi lại.
+        let saved=await confirmWishStored(payload);
+        if(!saved){await postWishPayload(payload);saved=await confirmWishStored(payload)}
+        if(!saved)remaining.push(payload);
+      }catch(_){remaining.push(payload)}
+    }
+    // Không xóa các yêu cầu được xếp hàng trong khi đang đồng bộ.
+    const current=safeLocalGet(WISH_PENDING_KEY,[]);
+    const oldIds=new Set(q.map(p=>p.requestId));
+    safeLocalSet(WISH_PENDING_KEY,remaining.concat(current.filter(p=>!oldIds.has(p.requestId))).slice(-20));
+    if(!remaining.length)setTimeout(()=>loadWishes({silent:true}),850);
+  }finally{pendingFlushBusy=false}
 }
 async function saveWishToGoogleSheet({name,wish,att='',type='wish'}){
   if(LOCAL_PREVIEW_ONLY){
@@ -6557,6 +7508,10 @@ async function saveWishToGoogleSheet({name,wish,att='',type='wish'}){
     requestId:makeRequestId(),
     guest:name,
     wish,
+    side:WEDDING_SIDE,
+    event:eventKey,
+    eventDate:EVENT.dateSlash,
+    eventTime:EVENT.time,
     attendance:att,
     type,
     createdAt:vietnamTimeISO(),
@@ -6565,9 +7520,12 @@ async function saveWishToGoogleSheet({name,wish,att='',type='wish'}){
   };
   try{
     await postWishPayload(payload);
-    // Apps Script cần một nhịp ngắn để appendRow hoàn tất rồi mới đọc lại.
-    setTimeout(()=>loadWishes({silent:true}),1700);
-    setTimeout(()=>loadWishes({silent:true}),5000);
+    const confirmed=await confirmWishStored(payload);
+    if(!confirmed){
+      queuePending(payload);
+      return {configured:true,ok:false,queued:true,requestId:payload.requestId};
+    }
+    setTimeout(()=>loadWishes({silent:true}),550);
     return {configured:true,ok:true,requestId:payload.requestId};
   }catch(error){
     console.warn('Không thể gửi lời chúc tới Google Sheets, đã đưa vào hàng đợi cục bộ:',error);
@@ -6601,7 +7559,7 @@ document.getElementById('sendRsvp').addEventListener('click',async()=>{
     msg.textContent=att==='yes'?'Đã gửi 💕 Chúng mình rất vui vì bạn sẽ có mặt!':'Đã gửi lời chúc vào sổ cưới 💌 Cảm ơn bạn thật nhiều!';
     document.getElementById('rwish').value='';
   }else{
-    msg.textContent='Mạng đang không ổn định. Lời chúc đã được giữ trên thiết bị và web sẽ thử gửi lại khi có mạng 💌';
+    msg.textContent='Chưa xác minh được Google Sheets đã ghi dữ liệu. Lời chúc đã được lưu vào hàng đợi trên thiết bị để thử đồng bộ lại 💌';
   }
   setSending(btn,false,'Gửi xác nhận & lưu lời chúc 💌');
 });
@@ -6645,7 +7603,7 @@ document.getElementById('sendQuick').addEventListener('click',async()=>{
   if(saved.local)liveBubble('Sổ lời chúc','Đã lưu trên thiết bị này ♡');
   else if(saved.configured&&saved.ok)liveBubble('Sổ lời chúc','Đã gửi lời chúc của bạn 💕');
   else if(!saved.configured)liveBubble('Sổ lời chúc','Google Sheets chưa được cấu hình');
-  else liveBubble('Sổ lời chúc','Mạng yếu — lời chúc đang được chờ đồng bộ');
+  else liveBubble('Sổ lời chúc','Đang chờ xác nhận lưu lên Google Sheets');
   setSending(btn,false,'Gửi');
 });
 document.getElementById('quickWish').addEventListener('keydown',e=>{
@@ -6664,7 +7622,7 @@ loadWishes({silent:true});
 flushPendingWishes();
 addEventListener('online',()=>{flushPendingWishes();loadWishes({silent:true})});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)loadWishes({silent:true})});
-setInterval(()=>{if(!document.hidden)loadWishes({silent:true})},120000);
+if(sheetConfigured())setInterval(()=>{if(!document.hidden)loadWishes({silent:true})},180000);
 
 /* Trái tim xuất hiện theo thao tác của khách, không chạy hiệu ứng thử nghiệm tự động. */
 function popHeart(x,y){
@@ -6678,17 +7636,29 @@ function popHeart(x,y){
 }
 document.getElementById('heartBtn').addEventListener('click',e=>popHeart(e.clientX,e.clientY));
 document.getElementById('moreHeart').addEventListener('click',()=>{
-  for(let i=0;i<8;i++)setTimeout(()=>popHeart(innerWidth/2+(Math.random()-.5)*140,innerHeight*.65),i*110);
+  for(let i=0;i<5;i++)setTimeout(()=>popHeart(innerWidth/2+(Math.random()-.5)*140,innerHeight*.65),i*140);
 });
 </script>
 
+<script>
+/* Low-end device guard: keep essential page transitions and audio working. */
+try{
+  if((navigator.deviceMemory&&navigator.deviceMemory<=4) ||
+     (navigator.hardwareConcurrency&&navigator.hardwareConcurrency<=4)){
+    document.body.classList.add('aac-perf-lite');
+  }
+}catch(_error){}
+</script>
 <script>
 /* Little cloud of love hearts only after an intentional tap — no timers. */
 (() => {
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
   const symbols=['♡','♥','✧','✿','♡'];
+  let lastPuff=0;
   function puff(x,y,n=8) {
     if(reduced.matches || document.hidden)return;
+    const now=Date.now();if(now-lastPuff<260)return;lastPuff=now;
+    n=Math.min(n,window.matchMedia('(max-width: 700px)').matches?4:7);
     for(let i=0;i<n;i++) {
       const el=document.createElement('span');el.className='cute-confetti';
       el.textContent=symbols[i%symbols.length];
@@ -6726,7 +7696,7 @@ document.getElementById('moreHeart').addEventListener('click',()=>{
     hug._hugTimer=setTimeout(()=>{caption.textContent=old;hug.classList.remove('is-hugging')},2100);
     if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
     const r=hug.getBoundingClientRect();
-    for(let i=0;i<8;i++){
+    for(let i=0;i<(window.matchMedia('(max-width: 700px)').matches?4:8);i++){
       const heart=document.createElement('span');heart.className='cute-confetti';
       heart.textContent=i%2?'♡':'♥';heart.style.color=['#f391b8','#dfaaef','#f6b98f'][i%3];
       heart.style.left=(r.left+r.width*.35)+'px';heart.style.top=(r.top+r.height*.55)+'px';
