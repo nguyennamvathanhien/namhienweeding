@@ -6,7 +6,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
 <title>Thiệp cưới Nhà Gái · Nguyễn Nam &amp; Thân Hiền</title>
-<meta name="aac-build" content="V12.5.4-CF-SMARTPRELOAD-NHAGAI"/>
+<meta name="aac-build" content="V12.5.5-CF-FAST-NHAGAI"/>
 <meta name="aac-version" content="V12.5.2 · Full House Bride HTML"/>
 <meta name="theme-color" content="#fff0f8"/>
 <meta name="robots" content="noindex, nofollow"/>
@@ -6110,6 +6110,58 @@ body[data-side="NhaGai"] #ceremonyRoom .ceremony-stack{display:grid;grid-templat
 .aac-event-hint{text-align:center;font-size:.76rem;margin:.78rem auto 0;color:#a67b91;max-width:560px}
 .aac-rsvp-date{padding:.85rem 1rem;border-radius:15px;background:#f9e0ed;color:#9f4e72;font-weight:800;text-align:center;font-size:.84rem;margin-bottom:1rem}
 @media(max-width:380px){.aac-event-switcher{gap:.45rem}.aac-event-switcher a{padding:.85rem .25rem}}
+
+/* ==============================================================
+   AAC V12.5.5 · PERFORMANCE / GPU SAFE (CLOUDFLARE)
+   Giữ giao diện gốc, giảm hiệu ứng khi không nhìn thấy.
+   =============================================================== */
+/* Chỉ tạm dừng hoạt ảnh của các phòng đã rời khỏi màn hình. */
+.sec.aac-perf-idle *, .sec.aac-perf-idle *::before, .sec.aac-perf-idle *::after,
+#sweetMoments.aac-perf-idle *, #sweetMoments.aac-perf-idle *::before, #sweetMoments.aac-perf-idle *::after {
+  animation-play-state:paused!important;
+}
+/* Trang ẩn/tab khác: không tiêu thụ GPU vì trang thiệp. */
+body.aac-perf-tab-hidden *, body.aac-perf-tab-hidden *::before, body.aac-perf-tab-hidden *::after {
+  animation-play-state:paused!important;
+}
+@media (max-width:700px), (pointer:coarse) {
+  /* Không blur qua nhiều lớp kính liên tiếp trên điện thoại. */
+  .calendar-card,.audio-card,.ticket,.rsvp-card,.gift-person,.j-card,
+  .wall-caption,.cer-info,.guide-card,.plaque,.label,.audio-card,
+  .live-bubble,.wish,.gift-qr-wrap,.sweet-card,.robot-photo-frame,
+  #bar,.quick-guest,#hero .hero-preview-card,#hero .hero-cute-tag,
+  #sweetMoments .sweet-card,#museumDoor .md-copy {
+    backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+  }
+  /* Các reveal vẫn nhạt dần/di chuyển nhưng không animate blur toàn khung. */
+  .sec [data-reveal],#sweetMoments [data-reveal] {
+    filter:none!important;
+    transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)!important;
+  }
+  /* Ít lớp GPU động hơn: dừng bóng bay, mascot phụ; ảnh bìa vẫn chuyển động nhẹ. */
+  .floating-heart-balloons,.bg-orb{display:none!important}
+  #app .kawaii-character,#app .lovebot,#app .cute-sticker,
+  #app .rsvp-keep-icon,#app .rsvp-keep-arrow,
+  #app .portrait-bridge,#app .cute-bubble {
+    animation:none!important;
+    filter:none!important;
+  }
+  #hero .hero-photo-layer .hero-slide.is-active:not(.studio-in){
+    animation:aacV1255LightBreath 16s ease-in-out infinite!important;
+    will-change:transform!important;
+  }
+  #sweetMoments .sweet-rail{scroll-snap-type:x proximity!important}
+  /* Nền hồng và lớp phủ ảnh cuối được giữ; giảm kích thước vùng blur lớn. */
+  #closing.v124-visible-softfade .close-bg-blurred{filter:blur(6px) saturate(.98)!important}
+}
+@keyframes aacV1255LightBreath{
+  0%,100%{transform:translate3d(0,0,0) scale(1.02)}
+  50%{transform:translate3d(0,0,0) scale(1.053)}
+}
+@media (prefers-reduced-motion:reduce){
+  #hero .hero-photo-layer .hero-slide.is-active:not(.studio-in){animation:none!important}
+}
+
 </style>
 </head>
 <body data-side="NhaGai">
@@ -7759,123 +7811,98 @@ try{
 })();
 </script>
 <script>
-/* Sweet Dream Studio: scroll-snap scrapbook, controls never interfere with vertical scroll. */
+/* Sweet Dream Studio: scroll-snap scrapbook, optimized controls. */
 (()=>{
  const rail=document.getElementById('sweetRail');if(!rail)return;
  const cards=[...rail.querySelectorAll('.sweet-card')];
  const position=document.getElementById('sweetPosition');
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
- function nearest(){const center=rail.getBoundingClientRect().left+rail.clientWidth/2;let best=0,dist=Infinity;
-  cards.forEach((card,i)=>{const r=card.getBoundingClientRect();const d=Math.abs((r.left+r.width/2)-center);if(d<dist){dist=d;best=i}});return best}
- let raf=0;
- function update(){position.textContent=String(nearest()+1).padStart(2,'0')+' / '+String(cards.length).padStart(2,'0')}
- rail.addEventListener('scroll',()=>{if(raf)return;raf=requestAnimationFrame(()=>{raf=0;update()})},{passive:true});
- function go(step){const index=(nearest()+step+cards.length)%cards.length;const card=cards[index];
-  rail.scrollTo({left:card.offsetLeft-(rail.clientWidth-card.clientWidth)/2,behavior:reduced.matches?'auto':'smooth'});
-  position.textContent=String(index+1).padStart(2,'0')+' / '+String(cards.length).padStart(2,'0');}
+ // Đo vị trí một lần sau layout, không gọi getBoundingClientRect() cho từng ảnh ở mọi frame.
+ let centers=[];let raf=0;let selected=-1;
+ function measure(){
+   centers=cards.map(card=>card.offsetLeft+card.offsetWidth/2);
+   update();
+ }
+ function nearest(){
+   const point=rail.scrollLeft+rail.clientWidth/2+rail.offsetLeft;
+   let best=0,dist=Infinity;
+   for(let i=0;i<centers.length;i++){
+     const d=Math.abs(centers[i]-point);
+     if(d<dist){dist=d;best=i;}
+   }
+   return best;
+ }
+ function update(){
+   const index=nearest();if(selected===index)return;
+   selected=index;position.textContent=String(index+1).padStart(2,'0')+' / '+String(cards.length).padStart(2,'0');
+ }
+ rail.addEventListener('scroll',()=>{
+   if(raf)return;
+   raf=requestAnimationFrame(()=>{raf=0;update()});
+ },{passive:true});
+ function go(step){
+   const index=(nearest()+step+cards.length)%cards.length;
+   const card=cards[index];
+   const left=card.offsetLeft-rail.offsetLeft-(rail.clientWidth-card.offsetWidth)/2;
+   rail.scrollTo({left,behavior:reduced.matches?'auto':'smooth'});
+   if(selected!==index){selected=index;position.textContent=String(index+1).padStart(2,'0')+' / '+String(cards.length).padStart(2,'0');}
+ }
  document.getElementById('sweetPrev').addEventListener('click',()=>go(-1));
  document.getElementById('sweetNext').addEventListener('click',()=>go(1));
- rail.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();go(e.key==='ArrowRight'?1:-1)}});
- update();
+ rail.addEventListener('keydown',e=>{
+   if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+     e.preventDefault();go(e.key==='ArrowRight'?1:-1);
+   }
+ });
+ window.addEventListener('resize',()=>{
+   if(raf)cancelAnimationFrame(raf);
+   raf=requestAnimationFrame(()=>{raf=0;measure()});
+ },{passive:true});
+ measure();
 })();
 </script>
 <script>
-/* =============================================================
-   AAC V12.5.4 · SMART PRELOAD · CLOUDFLARE PAGES
-   - First cover image is already eagerly fetched at high priority.
-   - Warm only images near the scroll position (not all 30 MB).
-   - Boost near-viewport photos ahead of normal browser lazy load.
-   - Warm the first two slides of each interactive gallery before entry.
-   - Respect Save-Data / slow networks; never change RSVP/Sheets.
-   ============================================================= */
-(() => {
+/* ==============================================================
+   AAC V12.5.5 · LEAN IMAGE & ANIMATION SCHEDULER
+   Một IntersectionObserver cho ảnh; không tải trùng qua new Image().
+   Chỉ có các ảnh gần màn hình được nâng ưu tiên, không đồng loạt
+   đổi 26 ảnh thành eager. Không can thiệp Google Sheets/RSVP.
+   =============================================================== */
+(()=>{
   'use strict';
   const conn=navigator.connection||navigator.mozConnection||navigator.webkitConnection;
-  const constrained=Boolean(conn && (conn.saveData || /(?:^|-)2g/.test(conn.effectiveType||'')));
-  const onPhone=matchMedia('(max-width:700px)').matches;
-  // Chỉnh các khoảng cách dưới đây nếu muốn ảnh được tải sớm hơn/nạp ít hơn.
-  const LOOK_AHEAD_PX=constrained?420:(onPhone?1150:1500);
-  const HIGH_PRIORITY_PX=constrained?140:(onPhone?330:480);
-  let started=false;
-  const warmed=new Map();
-  const warmPhoto=(file)=>{
-    if(!/^\d{1,2}\.webp$/.test(file))return Promise.resolve(false);
-    if(warmed.has(file))return warmed.get(file);
-    const promise=new Promise(resolve=>{
-      const img=new Image();
-      img.decoding='async';
-      img.fetchPriority='low'; // never compete with the current cover image
-      img.onload=()=>resolve(true);
-      img.onerror=()=>resolve(false);
-      img.src=file;
-    });
-    warmed.set(file,promise);
-    return promise;
-  };
-  const promote=(img,high)=>{
-    if(!img || (img.complete && img.naturalWidth>0))return;
-    img.setAttribute('fetchpriority',high?'high':'auto');
-    img.setAttribute('loading','eager');
-    img.decoding='async';
-  };
-  function start(){
-    if(started)return;
-    started=true;
-    const photos=Array.from(document.querySelectorAll('img[loading="lazy"][src]'));
-    if('IntersectionObserver' in window){
-      const early=new IntersectionObserver(entries=>{
-        for(const item of entries){
-          if(!item.isIntersecting)continue;
-          const img=item.target;
-          promote(img,false);
-          early.unobserve(img);
-        }
-      },{rootMargin:`300px 0px ${LOOK_AHEAD_PX}px 0px`,threshold:0});
-      const urgent=new IntersectionObserver(entries=>{
-        for(const item of entries){
-          if(!item.isIntersecting)continue;
-          const img=item.target;
-          promote(img,true);
-          urgent.unobserve(img);
-        }
-      },{rootMargin:`${HIGH_PRIORITY_PX}px 0px ${HIGH_PRIORITY_PX}px 0px`,threshold:0});
-      photos.forEach(img=>{early.observe(img);urgent.observe(img)});
-      // Pre-warm 1–2 upcoming photos in each gallery; leave other images lazy.
-      const sectionWarm=new IntersectionObserver(entries=>{
-        for(const entry of entries){
-          if(!entry.isIntersecting)continue;
-          if(entry.target.id==='sweetRail'){
-            warmPhoto('2.webp');
-            if(!constrained)warmPhoto('4.webp');
-          }else if(entry.target.id==='kineticGallery'){
-            warmPhoto('8.webp');
-            if(!constrained)warmPhoto('9.webp');
-          }
-          sectionWarm.unobserve(entry.target);
-        }
-      },{rootMargin:`250px 0px ${LOOK_AHEAD_PX}px 0px`,threshold:0});
-      ['sweetRail','kineticGallery'].forEach(id=>{
-        const el=document.getElementById(id);if(el)sectionWarm.observe(el);
-      });
-    }else{
-      // Older browsers still benefit from native lazy loading.
-      photos.filter(img=>img.getBoundingClientRect().top < innerHeight+400).forEach(img=>promote(img,false));
-    }
+  const slow=Boolean(conn && (conn.saveData||/(^|-)2g/.test(conn.effectiveType||'')));
+  const touch=matchMedia('(pointer:coarse)').matches || matchMedia('(max-width:700px)').matches;
+  if(touch || (navigator.deviceMemory&&navigator.deviceMemory<=4)) document.body.classList.add('aac-perf-lite');
+  const reflectVisibility=()=>document.body.classList.toggle('aac-perf-tab-hidden',document.hidden);
+  document.addEventListener('visibilitychange',reflectVisibility,{passive:true});
+  reflectVisibility();
+  // Dừng hiệu ứng vô hạn trong các phòng ngoài vùng nhìn; không ẩn/phá bố cục phòng.
+  if('IntersectionObserver' in window){
+    const rooms=[...document.querySelectorAll('.sec,#sweetMoments')];
+    const roomObserver=new IntersectionObserver(entries=>{
+      for(const e of entries)e.target.classList.toggle('aac-perf-idle',!e.isIntersecting);
+    },{rootMargin:touch?'180px 0px':'260px 0px',threshold:0});
+    rooms.forEach(el=>roomObserver.observe(el));
   }
-  // Delay gallery preloads until opening the invitation: protect the first cover.
-  const door=document.getElementById('museumDoor');
-  const begin=()=>{
-    const cover=document.getElementById('heroSlideA');
-    if(cover && !cover.complete){
-      cover.addEventListener('load',()=>setTimeout(start,250),{once:true});
-      setTimeout(start,1600); // fallback if cover is slow/missing
-    }else setTimeout(start,350);
-  };
-  if(door){
-    door.addEventListener('click',begin,{capture:true,once:true});
-    door.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')begin()},{once:true});
+  const photos=[...document.querySelectorAll('#app img[loading="lazy"][src]')];
+  // Tôn trọng native lazy loading; chỉ nâng ưu tiên 1 vùng sát màn hình.
+  // Không yêu cầu tải sớm 2-3 bộ ảnh/album cùng lúc như V12.5.4.
+  photos.forEach(img=>{img.decoding='async';img.fetchPriority='low';});
+  if('IntersectionObserver' in window){
+    const urgent=new IntersectionObserver(entries=>{
+      for(const e of entries){
+        if(!e.isIntersecting)continue;
+        const img=e.target;
+        if(!img.complete || !img.naturalWidth){
+          img.fetchPriority='auto';
+          img.loading='eager';
+        }
+        urgent.unobserve(img);
+      }
+    },{rootMargin:slow?'110px 0px':'220px 0px',threshold:0});
+    photos.forEach(img=>urgent.observe(img));
   }
-  if(document.body.classList.contains('invitation-open'))begin();
 })();
 </script>
 </body>
