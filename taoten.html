@@ -14,6 +14,23 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}button:disabled{
 .field{display:block;margin:0 0 15px}.field b{display:block;font-size:.79rem;margin:0 0 6px;color:#79596e}.field small{display:block;margin-top:5px;color:#a289a0;font-size:.71rem}.input{display:block;width:100%;border:1.5px solid var(--line);border-radius:13px;background:#fffbfd;color:#6f5271;padding:12px 13px;outline:none;min-height:45px}.input:focus{border-color:#e68eb8;box-shadow:0 0 0 3px rgba(244,174,210,.18)}textarea.input{min-height:110px;resize:vertical}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid #f1cfdf;background:white;border-radius:12px;padding:10px 14px;font-size:.82rem;font-weight:800;color:#aa6f91;min-height:41px;display:inline-flex;align-items:center;justify-content:center;gap:6px}.btn:hover{background:#fff4f9;border-color:#e8a0bf}.btn.primary{color:white;border-color:#f69fc1;background:linear-gradient(125deg,#ec88b1,#d784bc);box-shadow:0 8px 20px rgba(209,111,161,.22)}.btn.primary:hover{filter:brightness(1.04)}.btn.ghost{background:#fff6fa}.btn.danger{color:#b96078}.btn.compact{padding:6px 10px;font-size:.74rem;min-height:34px}.full{width:100%}.preview{margin:17px 0 0;border:1px dashed #eab9ce;background:linear-gradient(130deg,#fff9fb,#f2faff);padding:15px;border-radius:18px}.preview strong{display:block;font-size:.73rem;letter-spacing:.1em;color:#be84aa;margin-bottom:6px}.preview p{margin:0;font-size:.82rem;line-height:1.7}.privacy{margin:16px 0 0;font-size:.78rem;color:#937c91;line-height:1.8}
 .heading-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:15px}.count{background:#fff1f7;color:#d17eab;border-radius:50px;font-size:.72rem;font-weight:800;padding:5px 12px}.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 13px}.toolbar .input{flex:1;min-width:170px;max-width:none;font-size:.85rem}.table-outer{width:100%;overflow:auto;border:1px solid #f3dce7;border-radius:15px}.table{border-collapse:collapse;width:100%;min-width:660px;text-align:left;font-size:.8rem}.table th{background:#fff1f7;color:#ab7195;font-size:.73rem;letter-spacing:.02em;padding:11px;border-bottom:1px solid #f2d7e4;white-space:nowrap}.table td{padding:11px;border-bottom:1px solid #faeaf1;vertical-align:top}.table tr:last-child td{border-bottom:0}.table tbody tr:nth-child(2n){background:#fffbfd}.name{font-weight:800;color:#895a7d}.secondary{color:#9b8597;font-size:.73rem}.linktext{display:block;max-width:220px;word-break:break-all;color:#ba7096;text-decoration:none;font-size:.73rem;line-height:1.7}.row-actions{display:flex;gap:5px;flex-wrap:wrap}.empty{text-align:center;padding:30px 10px;color:#a88ca1;font-size:.86rem}.status{min-height:24px;color:#bf7195;font-size:.78rem;font-weight:750;margin:10px 0 0}.help{margin:20px 0 0;background:#fff9fc;border:1px solid #f4e3eb;border-radius:20px;padding:17px 22px;color:#90768b;font-size:.8rem;line-height:1.8}.help strong{color:#9d5f83}.help a{font-weight:700}.note{color:#a38da1;font-size:.72rem}.footer{text-align:center;color:#b291ad;font-size:.77rem;padding-top:27px}
 @media(max-width:840px){.layout{grid-template-columns:1fr}.card{padding:18px}.top{padding:16px 6px 20px}.toolbar .input{min-width:100%}}@media(max-width:380px){.btn{font-size:.77rem;padding:9px 10px}}
+
+/* V12.8.4 · 100 invitation cards without 100 copied HTML pages */
+.bulk-helper{display:flex;align-items:center;justify-content:space-between;gap:9px;flex-wrap:wrap;margin:-7px 0 15px}
+.bulk-count{font-size:.76rem;font-weight:850;color:#bb7198;background:#fff0f7;border:1px solid #f5d4e4;border-radius:999px;padding:5px 10px}
+.bulk-note{font-size:.73rem;color:#947b90}
+.view-toggle{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 14px}
+.view-toggle .btn[aria-pressed="true"]{background:#ffe8f3;border-color:#e89fbe;color:#b35e8f}
+.invite-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:13px}
+.invite-card{position:relative;min-width:0;background:linear-gradient(145deg,#fffdff,#fff1f8);border:1px solid #f2d5e3;border-radius:19px;padding:15px 13px;box-shadow:0 10px 22px #d9abc522}
+.invite-card:before{content:"♡";position:absolute;top:10px;right:13px;font-size:1.3rem;color:#e6a9c7}
+.invite-number{font-size:.65rem;font-weight:900;letter-spacing:.14em;color:#cd8fb0}
+.invite-name{font-size:1.05rem;line-height:1.35;font-weight:850;overflow-wrap:anywhere;color:#835b7a;margin:6px 30px 3px 0}
+.invite-date{font-size:.75rem;color:#977c94}
+.invite-link{display:block;font-size:.7rem;color:#b9729b;line-height:1.5;word-break:break-all;margin:7px 0;text-decoration:none}
+.invite-actions{display:flex;gap:7px;margin-top:8px;flex-wrap:wrap}
+@media(max-width:480px){.invite-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -22,7 +39,10 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}button:disabled{
 <div class="layout">
 <section class="card" aria-labelledby="create-title"><span class="tag">✦ DANH SÁCH KHÁCH MỜI</span><h2 id="create-title">Tạo lời mời cá nhân hóa</h2>
 <form id="makeForm">
-<label class="field"><b>Tên khách mời (mỗi dòng một người)</b><textarea class="input" id="guestNames" maxlength="15000" placeholder="Ví dụ: Nguyễn Văn A (Enter để xuống dòng, thêm khách khác)" required></textarea><small>Nhập một tên hoặc dán nhiều tên từ Excel theo từng dòng.</small></label>
+<label class="field"><b>Dán danh sách 100 tên khách mời (mỗi dòng một người)</b><textarea class="input" id="guestNames" maxlength="15000" rows="10" placeholder="Nguyễn Văn A
+Trần Văn B
+Gia đình anh Long
+... (có thể dán 100 dòng từ Excel)" required></textarea><small>Copy một cột tên trong Excel rồi dán một lần vào đây. Hỗ trợ tới 500 tên mỗi lượt.</small></label><div class="bulk-helper"><span class="bulk-count" id="bulkCount" aria-live="polite">0 tên đã nhập</span><span class="bulk-note">100 dòng = 100 thiệp cá nhân và 100 đường link</span></div>
 <label class="field"><b>Buổi tiệc muốn mời</b><select class="input" id="eventChoice"><option value="trai-29">Nhà trai · 10:00 sáng, 29/11/2026</option><option value="gai-28">Nhà gái · 17:00, 28/11/2026</option><option value="gai-29">Nhà gái · 10:00 sáng, 29/11/2026</option></select></label>
 <label class="field"><b>Địa chỉ website Cloudflare Pages</b><input class="input" id="baseUrl" type="url" placeholder="https://ten-website.pages.dev/" required><small>Chỉ cần nhập đúng một lần. Có thể sử dụng tên miền riêng nếu đã cấu hình.</small></label>
 <div class="actions"><button class="btn primary full" id="createBtn" type="submit">💌 Tạo link &amp; lưu danh sách</button><button class="btn ghost" id="clearDraft" type="button">Xóa ô nhập</button><button class="btn ghost" id="cancelEdit" type="button" hidden>Hủy sửa</button></div>
@@ -33,7 +53,7 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}button:disabled{
 </section>
 <section class="card" aria-labelledby="list-title"><div class="heading-row"><h2 id="list-title" style="margin:0">Danh sách link đã tạo</h2><span class="count" id="count">0 khách</span></div>
 <div class="toolbar"><input class="input" id="search" placeholder="🔎 Tìm tên khách hoặc ngày mời…" aria-label="Tìm trong danh sách"><button type="button" class="btn" id="copyExcel">📋 Sao chép cho Excel</button><button type="button" class="btn" id="exportCsv">⬇ Xuất CSV</button></div>
-<div class="table-outer"><table class="table"><thead><tr><th>STT</th><th>Tên khách mời</th><th>Buổi tiệc</th><th>Link cá nhân</th><th>Thao tác</th></tr></thead><tbody id="rows"></tbody></table></div>
+<div class="view-toggle" role="group" aria-label="Cách hiển thị danh sách khách"><button type="button" class="btn" id="showTable" aria-pressed="true">☷ Dạng bảng</button><button type="button" class="btn" id="showCards" aria-pressed="false">💌 Dạng thiệp (100 khách)</button></div><div class="table-outer" id="tableContainer"><table class="table"><thead><tr><th>STT</th><th>Tên khách mời</th><th>Buổi tiệc</th><th>Link cá nhân</th><th>Thao tác</th></tr></thead><tbody id="rows"></tbody></table></div><div class="invite-grid" id="invitationCards" hidden aria-label="Các thiệp mời đã tạo"></div>
 <p id="empty" class="empty">Chưa có link nào. Hãy nhập tên khách ở bên trái rồi bấm Tạo link.</p>
 <div class="actions" style="margin-top:15px"><button type="button" class="btn danger" id="clearAll">Xóa toàn bộ danh sách</button></div>
 </section>
@@ -55,7 +75,7 @@ const readJSON=(key,fallback)=>{try{const val=localStorage.getItem(key);return v
 const saveJSON=(key,val)=>{try{localStorage.setItem(key,JSON.stringify(val));return true}catch(_){return false}};
 let list=readJSON(KEY,[]);if(!Array.isArray(list))list=[];
 list=list.filter(r=>r&&typeof r.name==='string'&&choices[r.choice]).slice(0,10000);
-let editing=null;let searchTerm='';
+let editing=null;let searchTerm='';let viewMode='table';
 const draft=readJSON(DRAFT,{});
 const savedBase=typeof draft.base==='string'?draft.base:'';
 const onlineBase=location.protocol==='https:'?new URL('.',location.href).href:DEFAULT_BASE;
@@ -68,28 +88,43 @@ function linkOf(row){const base=validBase();if(!base)return null;const info=choi
 function setStatus(text){$('status').textContent=text}
 function persist(){if(!saveJSON(KEY,list))setStatus('Trình duyệt không cho lưu tự động. Hãy xuất CSV ngay để giữ danh sách.')}
 function saveDraft(){saveJSON(DRAFT,{base:$('baseUrl').value,choice:$('eventChoice').value,names:$('guestNames').value})}
-function updatePreview(){const first=$('guestNames').value.split(/\r?\n/).map(cleanName).find(Boolean)||'bạn';$('previewText').textContent=`Trân trọng kính mời ${first} tới chung vui cùng chúng mình ${choices[$('eventChoice').value].when} ♡`}
+function updatePreview(){const lines=$('guestNames').value.split(/\r?\n/).map(cleanName).filter(Boolean);const first=lines[0]||'bạn';$('previewText').textContent=`Trân trọng kính mời ${first} tới chung vui cùng chúng mình ${choices[$('eventChoice').value].when} ♡`;$('bulkCount').textContent=lines.length+' tên đã nhập';if(!editing)$('createBtn').textContent=lines.length>1?'💌 Tạo '+lines.length+' link & lưu danh sách':'💌 Tạo link & lưu danh sách'}
 ['guestNames','baseUrl','eventChoice'].forEach(id=>$(id).addEventListener('input',()=>{saveDraft();updatePreview();if(id==='baseUrl')render()}));
 $('eventChoice').addEventListener('change',()=>{saveDraft();updatePreview()});
 function addButton(label,action,rowId){const b=document.createElement('button');b.type='button';b.className='btn compact';b.textContent=label;b.dataset.act=action;b.dataset.id=rowId;return b}
 function makeTd(text,cls){const c=document.createElement('td');if(cls)c.className=cls;c.textContent=text;return c}
 function shown(){const needle=searchTerm.trim().toLocaleLowerCase('vi-VN');return needle?list.filter(row=>row.name.toLocaleLowerCase('vi-VN').includes(needle)||choices[row.choice].label.toLocaleLowerCase('vi-VN').includes(needle)):list}
-function render(){const tbody=$('rows');tbody.replaceChildren();$('count').textContent=list.length+' khách';const filtered=shown();$('empty').hidden=filtered.length>0;if(!filtered.length){$('empty').textContent=list.length?'Không tìm thấy khách phù hợp.':'Chưa có link nào. Hãy nhập tên khách ở bên trái rồi bấm Tạo link.';return}
+function render(){const tbody=$('rows');tbody.replaceChildren();const grid=$('invitationCards');grid.replaceChildren();$('tableContainer').hidden=viewMode==='cards';grid.hidden=viewMode!=='cards';$('showTable').setAttribute('aria-pressed',String(viewMode==='table'));$('showCards').setAttribute('aria-pressed',String(viewMode==='cards'));$('count').textContent=list.length+' khách';const filtered=shown();$('empty').hidden=filtered.length>0;if(!filtered.length){$('empty').textContent=list.length?'Không tìm thấy khách phù hợp.':'Chưa có link nào. Hãy nhập tên khách ở bên trái rồi bấm Tạo link.';return}
  const frag=document.createDocumentFragment();filtered.forEach((r,i)=>{const tr=document.createElement('tr');tr.append(makeTd(String(i+1),'secondary'),makeTd(r.name,'name'),makeTd(choices[r.choice].label,'secondary'));
  const td=document.createElement('td');const a=document.createElement('a');const link=linkOf(r);a.className='linktext';a.href=link||'#';a.target='_blank';a.rel='noopener noreferrer';a.textContent=link||'Địa chỉ website chưa đúng';a.title=link||'';td.append(a);tr.append(td);
- const tools=document.createElement('td');const group=document.createElement('div');group.className='row-actions';group.append(addButton('Sao chép','copy',r.id),addButton('Sửa','edit',r.id),addButton('Xóa','remove',r.id));tools.append(group);tr.append(tools);frag.append(tr)});tbody.append(frag)
+ const tools=document.createElement('td');const group=document.createElement('div');group.className='row-actions';group.append(addButton('Sao chép','copy',r.id),addButton('Sửa','edit',r.id),addButton('Xóa','remove',r.id));tools.append(group);tr.append(tools);frag.append(tr)});tbody.append(frag);
+ if(viewMode==='cards'){
+   const cards=document.createDocumentFragment();filtered.forEach((r,i)=>{
+     const item=document.createElement('article');item.className='invite-card';
+     const no=document.createElement('div');no.className='invite-number';no.textContent='THIỆP MỜI / '+String(i+1).padStart(3,'0');
+     const name=document.createElement('div');name.className='invite-name';name.textContent=r.name;
+     const date=document.createElement('div');date.className='invite-date';date.textContent=choices[r.choice].label;
+     const link=document.createElement('a');link.className='invite-link';link.href=linkOf(r)||'#';link.target='_blank';link.rel='noopener noreferrer';link.textContent=link.href;
+     const acts=document.createElement('div');acts.className='invite-actions';acts.append(addButton('📋 Sao chép link','copy',r.id));
+     const open=document.createElement('a');open.className='btn compact';open.href=link.href;open.target='_blank';open.rel='noopener noreferrer';open.textContent='Mở thiệp ↗';acts.append(open);
+     item.append(no,name,date,link,acts);cards.append(item);
+   });grid.append(cards);
+ }
 }
 $('makeForm').addEventListener('submit',ev=>{ev.preventDefault();const base=validBase();if(!base){setStatus('Vui lòng điền địa chỉ website hợp lệ.');$('baseUrl').focus();return}
  const names=$('guestNames').value.split(/\r?\n/).map(cleanName).filter(Boolean);if(!names.length){setStatus('Bạn cần nhập ít nhất một tên khách mời.');return}if(names.length>500){setStatus('Mỗi lần chỉ tạo tối đa 500 link. Hãy chia thành nhiều lượt.');return}
  const choice=$('eventChoice').value;
  if(editing){const existing=list.find(x=>x.id===editing);if(existing){existing.name=names[0];existing.choice=choice;persist();setStatus(`Đã cập nhật link cho ${names[0]}.`)}editing=null;$('cancelEdit').hidden=true;$('createBtn').textContent='💌 Tạo link & lưu danh sách';}
- else{let added=0,skipped=0;for(const name of names){const exists=list.some(x=>x.choice===choice&&x.name.toLocaleLowerCase('vi-VN')===name.toLocaleLowerCase('vi-VN'));if(exists){skipped++;continue}list.unshift({id:'g'+Date.now().toString(36)+Math.random().toString(36).slice(2,9),name,choice});added++}
- persist();setStatus(`Đã tạo và lưu ${added} link${skipped?' · bỏ qua '+skipped+' khách đã có':''}.`)}
- $('guestNames').value='';saveDraft();updatePreview();render();$('guestNames').focus();});
+ else{let added=0,skipped=0;const seen=new Set(list.map(x=>x.choice+'|'+x.name.toLocaleLowerCase('vi-VN')));const created=[];for(const name of names){const key=choice+'|'+name.toLocaleLowerCase('vi-VN');if(seen.has(key)){skipped++;continue}seen.add(key);created.push({id:'g'+Date.now().toString(36)+Math.random().toString(36).slice(2,9),name,choice});added++}
+ list=[...created,...list];persist();setStatus(`Đã tạo và lưu ${added} link${skipped?' · bỏ qua '+skipped+' khách đã có':''}. Thứ tự tên giữ nguyên như trong Excel.`)}
+ if(!editing && names.length>1)viewMode='cards';$('guestNames').value='';saveDraft();updatePreview();render();$('guestNames').focus();});
 $('cancelEdit').addEventListener('click',()=>{editing=null;$('cancelEdit').hidden=true;$('createBtn').textContent='💌 Tạo link & lưu danh sách';$('guestNames').value='';saveDraft();updatePreview();});
 $('clearDraft').addEventListener('click',()=>{$('guestNames').value='';saveDraft();updatePreview();$('guestNames').focus();});
 $('search').addEventListener('input',e=>{searchTerm=e.target.value;render()});
 async function copyText(text){if(!text)return false;try{await navigator.clipboard.writeText(text);return true}catch(_){}try{const input=document.createElement('textarea');input.value=text;input.style.position='fixed';input.style.left='-9999px';document.body.append(input);input.select();const ok=document.execCommand('copy');input.remove();return ok}catch(_){return false}}
+$('showTable').addEventListener('click',()=>{viewMode='table';render()});
+$('showCards').addEventListener('click',()=>{viewMode='cards';render()});
+$('invitationCards').addEventListener('click',async ev=>{const btn=ev.target.closest('button[data-act="copy"]');if(!btn)return;const row=list.find(x=>x.id===btn.dataset.id);if(!row)return;const ok=await copyText(linkOf(row));setStatus(ok?'Đã sao chép link của '+row.name+'.':'Chưa sao chép được, hãy chọn đường link để sao chép.');});
 $('rows').addEventListener('click',async ev=>{const btn=ev.target.closest('button[data-act]');if(!btn)return;const row=list.find(x=>x.id===btn.dataset.id);if(!row)return;
  if(btn.dataset.act==='copy'){const ok=await copyText(linkOf(row));setStatus(ok?'Đã sao chép link của '+row.name+'.':'Không sao chép được, bạn hãy nhấn vào đường link rồi copy thủ công.');}
  if(btn.dataset.act==='edit'){editing=row.id;$('guestNames').value=row.name;$('eventChoice').value=row.choice;$('createBtn').textContent='💾 Lưu thay đổi';$('cancelEdit').hidden=false;saveDraft();updatePreview();$('guestNames').scrollIntoView({behavior:'smooth',block:'center'});$('guestNames').focus();setStatus('Đang sửa: '+row.name);}

@@ -6298,6 +6298,164 @@ body.invitation-open #live{opacity:1!important;visibility:visible!important;poin
   text-shadow:0 1px 8px rgba(255,255,255,.78)!important;
 }
 
+
+/* ===== AAC Wedding V12.8.4: portrait-safe opening, gallery ending, chapter 06 ===== */
+/* Cover restored from V12.8.2. No V12.8.4 contain override. */
+
+/* The ninth (16.webp) photo is the full-width final image. The crop was
+   restored to its original landscape-style framing below. */
+#exhibitRoom .archive-tiles > .archive-tile:nth-child(9){
+  grid-column:1 / -1!important;grid-row:auto!important;
+  width:100%!important;max-width:none!important;min-width:0!important;
+  margin:0!important;justify-self:stretch!important;transform:none!important;
+  background:linear-gradient(145deg,#fff9fc,#f6ecfa)!important;
+  border-color:#fff!important;
+}
+#exhibitRoom .archive-tiles > .archive-tile:nth-child(9) .archive-media{
+  aspect-ratio:10 / 7!important;height:auto!important;width:100%!important;
+  background:radial-gradient(ellipse at 50% 45%,#fffefd 0%,#ffebf4 57%,#f0e7ff 100%)!important;
+  border-radius:clamp(19px,3cqw,29px)!important;
+}
+#exhibitRoom .archive-tiles > .archive-tile:nth-child(9) .archive-media img{
+  display:block!important;width:100%!important;height:100%!important;
+  object-fit:contain!important;object-position:center center!important;
+  transform:none!important;filter:none!important;
+}
+#exhibitRoom .archive-tiles > .archive-tile:nth-child(9) .archive-info{justify-content:center!important;gap:.6rem!important}
+#exhibitRoom .archive-tiles > .archive-tile:nth-child(9) .archive-title{white-space:normal!important;overflow:visible!important;text-overflow:clip!important;text-align:center!important}
+@media(hover:hover){
+  #exhibitRoom .archive-tiles > .archive-tile:nth-child(9):hover{transform:translateY(-3px)!important;box-shadow:0 17px 36px rgba(185,125,165,.22)!important}
+}
+
+/* Chapter 06: a lightweight portrait postcard, soft photo and caption. */
+#moodRoom .mood-memory{
+  display:block;position:relative;isolation:isolate;
+  width:min(100%,346px);margin:clamp(18px,4cqw,30px) auto 1.4rem;
+  padding:9px 9px 0;background:linear-gradient(145deg,#fff,#fff6fc);
+  border:2px solid rgba(255,255,255,.95);border-radius:30px;
+  box-shadow:0 20px 42px rgba(187,125,165,.14),0 0 0 1px rgba(244,196,220,.58);
+  transform:translateY(0);transition:transform .42s cubic-bezier(.2,.7,.3,1),box-shadow .42s ease;
+}
+#moodRoom .mood-memory-photo{position:relative;display:block;overflow:hidden;border-radius:22px;background:#f4e8f1}
+#moodRoom .mood-memory-photo img{display:block;width:100%;height:auto;aspect-ratio:2/3;object-fit:contain}
+#moodRoom .mood-memory-photo::after{content:"";position:absolute;inset:55% 0 0;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(117,62,89,.12))}
+#moodRoom .mood-memory figcaption{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:13px 9px 16px;text-align:center;font:800 clamp(.83rem,3.3cqw,.95rem)/1.5 var(--sans);color:#ac7397}
+#moodRoom .mood-memory figcaption::before,#moodRoom .mood-memory figcaption::after{content:"♡";font:400 1.1rem Georgia,serif;color:#e6a1c5}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){#moodRoom .mood-memory:hover{transform:translateY(-5px) rotate(-.6deg);box-shadow:0 24px 50px rgba(187,125,165,.23)}}
+@media(prefers-reduced-motion:reduce){#moodRoom .mood-memory{transition:none!important;transform:none!important}}
+
+
+/* ===== V12.8.5 · Restore the original cover & floating heart balloons =====
+   The opening cover is intentionally left under the exact pre-V12.8.4
+   styles; only the V12.8.4 portrait-contain override has been removed.
+   Re-enable light translucent balloons on phones without re-enabling
+   other GPU-heavy background effects. */
+@media (prefers-reduced-motion: no-preference) {
+  body .floating-heart-balloons,
+  body.aac-perf-lite .floating-heart-balloons,
+  body.aac-perf-low .floating-heart-balloons {
+    display:block!important;
+    position:fixed!important;
+    left:50%!important;
+    top:0!important;
+    transform:translateX(-50%)!important;
+    width:min(100%,var(--aac-phone-width,440px))!important;
+    height:100dvh!important;
+    overflow:hidden!important;
+    pointer-events:none!important;
+    z-index:48!important;
+  }
+  body .floating-heart-balloons .love-air {
+    display:block!important;
+    animation:balloonRise55 var(--rise,30s) linear infinite!important;
+    animation-delay:var(--delay,0s)!important;
+    pointer-events:none!important;
+  }
+}
+@media (max-width:700px) and (prefers-reduced-motion:no-preference),
+       (pointer:coarse) and (prefers-reduced-motion:no-preference) {
+    body .floating-heart-balloons .love-air {
+      width:clamp(30px,9vw,42px)!important;
+      filter:none!important;
+      opacity:.44!important;
+      animation-duration:calc(var(--rise,30s) * 1.25)!important;
+      will-change:auto!important;
+    }
+    /* Six gently moving balloons on phones; 13 on large screens. */
+    body .floating-heart-balloons .love-air:nth-child(n+7){display:none!important}
+}
+/* MEM 09 / 16.webp: full two-column landscape crop, as in the older album.
+   Cropping happens from the top and bottom; preserve faces in upper half. */
+#exhibitRoom .archive-tiles>.archive-tile:nth-child(9) {
+  grid-column:1/-1!important;
+  width:100%!important;
+  max-width:none!important;
+}
+#exhibitRoom .archive-tiles>.archive-tile:nth-child(9) .archive-media {
+  width:100%!important;
+  height:auto!important;
+  aspect-ratio:3/2!important;
+  overflow:hidden!important;
+}
+#exhibitRoom .archive-tiles>.archive-tile:nth-child(9) .archive-media img {
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center 30%!important;
+  transform:none!important;
+}
+
+
+/* ===== V12.8.6 · More persistent heart balloons on mobile =====
+   Keep the original 13 balloons on desktop. Phones/tablets with touch
+   display 18 lightweight SVG balloons with negative offsets (steady flow).
+   Layer is fixed in viewport and is NOT tied to scroll/room observers.
+   Other visual sections, RSVP, invitation generator and meta are unchanged. */
+body .floating-heart-balloons .love-air:nth-child(n+14){display:none!important}
+.love-air-14{left:15%;--rise:26s;--delay:-14s;--sway:20px}
+.love-air-15{left:38%;--rise:29s;--delay:-23s;--sway:-25px}
+.love-air-16{left:62%;--rise:31s;--delay:-6s;--sway:24px}
+.love-air-17{left:81%;--rise:27s;--delay:-17s;--sway:-20px}
+.love-air-18{left:28%;--rise:33s;--delay:-28s;--sway:18px}
+@media (prefers-reduced-motion:no-preference) and (max-width:700px),
+       (prefers-reduced-motion:no-preference) and (pointer:coarse){
+  /* Override the old performance/6-item mobile cap; animation continues while scrolling. */
+  body .floating-heart-balloons,
+  body.aac-perf-lite .floating-heart-balloons,
+  body.aac-perf-low .floating-heart-balloons{
+    display:block!important;
+    position:fixed!important;
+    top:0!important;
+    bottom:auto!important;
+    left:50%!important;
+    right:auto!important;
+    width:min(100%,var(--aac-phone-width,440px))!important;
+    height:100dvh!important;
+    transform:translateX(-50%)!important;
+    overflow:hidden!important;
+    pointer-events:none!important;
+    z-index:48!important;
+  }
+  body .floating-heart-balloons .love-air,
+  body .floating-heart-balloons .love-air:nth-child(n+4),
+  body .floating-heart-balloons .love-air:nth-child(n+7),
+  body .floating-heart-balloons .love-air:nth-child(n+14){
+    display:block!important;
+    animation-name:balloonRise55!important;
+    animation-duration:calc(var(--rise,30s) * .88)!important;
+    animation-timing-function:linear!important;
+    animation-iteration-count:infinite!important;
+    animation-delay:var(--delay,0s)!important;
+    animation-play-state:running;
+    width:clamp(28px,8.8vw,43px)!important;
+    opacity:.48!important;
+    filter:none!important;
+    will-change:transform,opacity;
+  }
+  body .floating-heart-balloons .love-air:nth-child(3n){width:clamp(24px,7.3vw,35px)!important;opacity:.40!important}
+  body .floating-heart-balloons .love-air:nth-child(5n){width:clamp(34px,10.5vw,49px)!important}
+}
 </style>
 </head>
 <body data-side="NhaGai">
@@ -6382,6 +6540,11 @@ body.invitation-open #live{opacity:1!important;visibility:visible!important;poin
   <svg class="love-air love-air-11"><use href="#lovely-balloon"></use></svg>
   <svg class="love-air love-air-12"><use href="#lovely-balloon"></use></svg>
   <svg class="love-air love-air-13"><use href="#lovely-balloon"></use></svg>
+  <svg class="love-air love-air-14"><use href="#lovely-balloon"></use></svg>
+  <svg class="love-air love-air-15"><use href="#lovely-balloon"></use></svg>
+  <svg class="love-air love-air-16"><use href="#lovely-balloon"></use></svg>
+  <svg class="love-air love-air-17"><use href="#lovely-balloon"></use></svg>
+  <svg class="love-air love-air-18"><use href="#lovely-balloon"></use></svg>
 </div>
 <div class="bg-orb orb1"></div>
 <div class="bg-orb orb2"></div>
@@ -6763,10 +6926,9 @@ body.invitation-open #live{opacity:1!important;visibility:visible!important;poin
         <button class="archive-tile" type="button" data-photo-index="6" aria-current="false" aria-label="Xem ảnh 7: Chỉ cần có nhau tại máy trình chiếu"><span class="archive-media"><img src="14.webp" loading="lazy" decoding="async" alt="Ảnh cưới 7 · Chỉ cần có nhau" fetchpriority="low" width="1600" height="2385" srcset="optimized/14-640.webp 640w, optimized/14-1080.webp 1080w, 14.webp 1600w" sizes="(min-width:900px) 45vw, 90vw"><span class="archive-photo-number">MEM / 07</span></span><span class="archive-info"><span class="archive-title">Chỉ cần có nhau</span><span class="archive-arrow" aria-hidden="true">↗</span></span></button>
         <button class="archive-tile" type="button" data-photo-index="7" aria-current="false" aria-label="Xem ảnh 8: Câu chuyện vẫn tiếp tục tại máy trình chiếu"><span class="archive-media"><img src="15.webp" loading="lazy" decoding="async" alt="Ảnh cưới 8 · Câu chuyện vẫn tiếp tục" fetchpriority="low" width="4448" height="6672" srcset="optimized/15-640.webp 640w, optimized/15-1080.webp 1080w" sizes="(min-width:900px) 45vw, 90vw"><span class="archive-photo-number">MEM / 08</span></span><span class="archive-info"><span class="archive-title">Câu chuyện vẫn tiếp tục</span><span class="archive-arrow" aria-hidden="true">↗</span></span></button>
         <button class="archive-tile" type="button" data-photo-index="8" aria-current="false" aria-label="Xem ảnh 9: Và mãi về sau tại máy trình chiếu"><span class="archive-media"><img src="16.webp" loading="lazy" decoding="async" alt="Ảnh cưới 9 · Và mãi về sau" fetchpriority="low" width="1600" height="2400" srcset="optimized/16-640.webp 640w, optimized/16-1080.webp 1080w, 16.webp 1600w" sizes="(min-width:900px) 45vw, 90vw"><span class="archive-photo-number">MEM / 09</span></span><span class="archive-info"><span class="archive-title">Và mãi về sau</span><span class="archive-arrow" aria-hidden="true">↗</span></span></button>
-        <button class="archive-tile" type="button" data-photo-index="9" aria-current="false" aria-label="Xem ảnh 10: Mình lại có thêm một ngày để thương tại máy trình chiếu"><span class="archive-media"><img src="17.webp" loading="lazy" decoding="async" alt="Ảnh cưới 10 · Mình lại có thêm một ngày để thương" fetchpriority="low" width="607" height="911" srcset="optimized/17-640.webp 607w, 17.webp 607w" sizes="(min-width:900px) 45vw, 90vw"><span class="archive-photo-number">MEM / 10</span></span><span class="archive-info"><span class="archive-title">Mình lại có thêm một ngày để thương</span><span class="archive-arrow" aria-hidden="true">↗</span></span></button>
       </div>
       <button type="button" id="bearHugButton" class="bear-hug-button" aria-label="Chạm để nhận một chiếc ôm từ gấu"><svg aria-hidden="true" focusable="false" class="kawaii-character  kawaii--milk"><use href="#kawaii-bear"></use></svg><span>Chạm gấu để nhận một chiếc ôm ♡</span></button>
-      <p class="archive-foot">Đủ cả 10 bức ảnh của tụi mình ♡ Chạm một ảnh để robot mang đến khung lớn nhé!</p>
+      <p class="archive-foot">Đủ cả 9 bức ảnh của tụi mình ♡ Chạm một ảnh để robot mang đến khung lớn nhé!</p>
     </div>
   </section>
 
@@ -6776,6 +6938,10 @@ body.invitation-open #live{opacity:1!important;visibility:visible!important;poin
     <span class="room-title" data-reveal data-delay="1">Little Notes</span>
     <span class="room-script" data-reveal data-delay="2">Một chút nhắn nhủ</span>
     <p class="room-sub" data-reveal data-delay="3">Một vài điều xinh xinh để hôm ấy mình gặp nhau thật vui!</p>
+    <figure class="mood-memory" data-reveal aria-label="Một khoảnh khắc của Nam và Hiền">
+      <div class="mood-memory-photo"><img src="3.webp" width="1600" height="2400" srcset="optimized/3-640.webp 640w, optimized/3-1080.webp 1080w, 3.webp 1600w" sizes="(max-width:600px) 85vw, 346px" loading="lazy" decoding="async" alt="Nguyễn Nam và Thân Hiền cùng nhau trong khu vườn xanh"/></div>
+      <figcaption>Những ngày bình yên, mãi bên nhau</figcaption>
+    </figure>
     <div class="mood-system" data-reveal data-delay="4"><span class="mood-system-led"></span><span>LOVE CLOUD / A SWEET DAY</span><b>MADE WITH LOVE ♡</b></div>
     <div class="notes-friend" aria-hidden="true"><svg aria-hidden="true" focusable="false" class="kawaii-character  kawaii--lavender"><use href="#kawaii-bunny"></use></svg><span>Nhớ mang theo nụ cười nha! ✿</span></div>
     <div class="guide">
@@ -7236,8 +7402,8 @@ document.querySelectorAll('[data-reveal]').forEach(el=>obs.observe(el));
   const counter=document.getElementById('robotCounter');
   const caption=document.getElementById('robotCaption');
   const dots=document.getElementById('robotDots');
-  const galleryFiles=['8.webp','9.webp','10.webp','11.webp','12.webp','13.webp','14.webp','15.webp','16.webp','17.webp'];
-  const stories=['Ngày ấy mình gặp nhau','Những ngày bình yên','Một nụ cười, một lời hẹn','Chạm vào hạnh phúc','Cùng nhau lớn lên','Mình đã chọn nhau','Chỉ cần có nhau','Câu chuyện vẫn tiếp tục','Và mãi về sau','Mình lại có thêm một ngày để thương'];
+  const galleryFiles=['8.webp','9.webp','10.webp','11.webp','12.webp','13.webp','14.webp','15.webp','16.webp'];
+  const stories=['Ngày ấy mình gặp nhau','Những ngày bình yên','Một nụ cười, một lời hẹn','Chạm vào hạnh phúc','Cùng nhau lớn lên','Mình đã chọn nhau','Chỉ cần có nhau','Câu chuyện vẫn tiếp tục','Và mãi về sau'];
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
   const cache=new Map();
   let current=0,busy=false,visible=false,timer=0,pointerStart=null,queuedRequest=null;
@@ -7254,7 +7420,7 @@ document.querySelectorAll('[data-reveal]').forEach(el=>obs.observe(el));
         else finish(true);
       };
       im.onerror=()=>finish(false);
-      im.decoding='async';const base=galleryFiles[idx].replace('.webp','');im.src=(idx===5||idx===9)?galleryFiles[idx]:`optimized/${base}-1080.webp`;
+      im.decoding='async';const base=galleryFiles[idx].replace('.webp','');im.src=(idx===5)?galleryFiles[idx]:`optimized/${base}-1080.webp`;
     });
     cache.set(idx,p);return p;
   };
@@ -7282,7 +7448,7 @@ document.querySelectorAll('[data-reveal]').forEach(el=>obs.observe(el));
     root.classList.add('is-transferring');
     const wait=reduced.matches?0:240;
     setTimeout(()=>{
-      const base=galleryFiles[idx].replace('.webp','');photo.srcset=(idx===5||idx===9)?`${galleryFiles[idx]} 607w`:`optimized/${base}-640.webp 640w, optimized/${base}-1080.webp 1080w`;
+      const base=galleryFiles[idx].replace('.webp','');photo.srcset=(idx===5)?`${galleryFiles[idx]} 607w`:`optimized/${base}-640.webp 640w, optimized/${base}-1080.webp 1080w`;
       photo.sizes='(min-width:800px) 34vw, 65vw';
       photo.src=galleryFiles[idx];
       photo.alt='Album ảnh cưới Nguyễn Nam và Thân Hiền · Kỷ niệm '+String(idx+1).padStart(2,'0');
