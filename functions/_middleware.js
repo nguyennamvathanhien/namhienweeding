@@ -46,7 +46,7 @@ export async function onRequest(context) {
   const canonical = new URL(isBride ? '/nhagai.html' : '/', url.origin);
   canonical.searchParams.set('event', event);
   if (guest) canonical.searchParams.set('guest', guest);
-  const image = new URL('/share-hero-v1282.jpg', url.origin).href;
+  const image = new URL('/hero.webp?og=v1284', url.origin).href;
 
   const rewritten = new HTMLRewriter()
     .on('title', new TitleValue(title))

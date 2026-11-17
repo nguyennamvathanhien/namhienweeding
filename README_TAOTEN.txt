@@ -14,12 +14,12 @@ FILE BỔ SUNG
 - functions/_middleware.js: Cloudflare Pages Function tạo nội dung meta name=description,
   og:description, og:title, og:url, og:image riêng cho URL ?event=...&guest=...
 - _routes.json: chỉ chạy Function trên trang Nhà trai/Nhà gái; file ảnh, nhạc, trang tạo tên là tệp tĩnh.
-- share-hero-v1282.jpg: ảnh xem trước Messenger (JPEG 1200x630 tạo từ hero.webp gốc).
+- hero.webp: ảnh xem trước Messenger, WebP gốc 1600x1021 (dùng chung file với website).
 
 CÁCH TRIỂN KHAI QUA GITHUB DESKTOP + CLOUDFLARE PAGES
 1. Giải nén ZIP này, mở thư mục code GitHub bằng Repository > Show in Explorer.
 2. Sao chép index.html, nhagai.html, taoten.html, functions/, _routes.json,
-   share-hero-v1282.jpg và các file website vào GỐC thư mục repository.
+   hero.webp và các file website vào GỐC thư mục repository.
    Nhớ đảm bảo functions/_middleware.js không ở dưới một thư mục lồng bên trong!
 3. Trở lại GitHub Desktop > Changes > Commit to main > Push origin.
 4. Kiểm tra Cloudflare Pages > Deployments đã Success.
