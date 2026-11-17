@@ -6445,30 +6445,50 @@ body .floating-heart-balloons .love-air:nth-child(n+14){display:none!important}
 }
 
 
-
-/* V12.8.8 — chỉ phục hồi hành vi thanh lời chúc của cover cũ.
-   Hiệu ứng ảnh/bóng bay, độ cao cover và CSS của các chương vẫn như V12.8.6. */
-body:not(.aac-wish-visible) #bar{
-  opacity:0!important;
-  visibility:hidden!important;
-  pointer-events:none!important;
-  transform:translate(-50%,calc(100% + 16px))!important;
+/* V12.8.7 — KHUÔN ẢNH ĐẦU FULL VIEWPORT, GIỮ NGUYÊN ẢNH COVER VÀ BÓNG BAY */
+/* 1 phone frame (440px max) is intentionally preserved on tablets/desktops. */
+#app > #hero.v121-safe-hero{
+  position:relative!important;
+  box-sizing:border-box!important;
+  display:block!important;
+  width:100%!important;
+  height:100svh!important;
+  min-height:100svh!important;
+  max-height:none!important;
+  aspect-ratio:auto!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  overflow:hidden!important;
 }
-body:not(.aac-wish-visible) #live{
-  opacity:0!important;
-  visibility:hidden!important;
-  pointer-events:none!important;
+@supports(height:100dvh){
+  #app > #hero.v121-safe-hero{
+    height:100dvh!important;
+    min-height:100dvh!important;
+  }
 }
-body.invitation-open.aac-wish-visible #bar{
-  opacity:1!important;
-  visibility:visible!important;
-  pointer-events:auto!important;
-  transform:translateX(-50%)!important;
+#app > #hero.v121-safe-hero .hero-photo-layer{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  border:0!important;
+  border-radius:0!important;
+  padding:0!important;
+  overflow:hidden!important;
 }
-body.invitation-open.aac-wish-visible #live{
-  visibility:visible!important;
-  opacity:1!important;
+#app > #hero.v121-safe-hero .hero-photo-layer .hero-slide{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center 30%!important;
+  border:0!important;
+  border-radius:0!important;
 }
+/* No extra GPU animation effects added: existing zoom and floating hearts stay intact. */
 
 </style>
 </head>
@@ -8184,36 +8204,6 @@ try{
     },{rootMargin:slow?'110px 0px':'220px 0px',threshold:0});
     photos.forEach(img=>urgent.observe(img));
   }
-})();
-</script>
-
-<script>
-/* V12.8.8 — đồng bộ thanh lời chúc theo vị trí cuộn thực tế.
-   Không can thiệp vào slideshow, IntersectionObserver của ảnh, hay bóng bay. */
-(()=>{
-  const cover=document.getElementById('hero');
-  if(!cover)return;
-  let pending=false;
-  function update(){
-    pending=false;
-    const vh=window.visualViewport ? window.visualViewport.height : window.innerHeight;
-    const nearBottom=Math.max(24,Math.min(64,vh*.07));
-    const scrolledPast=cover.getBoundingClientRect().bottom<=nearBottom;
-    document.body.classList.toggle('aac-wish-visible',
-      document.body.classList.contains('invitation-open') && scrolledPast);
-  }
-  function schedule(){
-    if(pending)return;
-    pending=true;
-    requestAnimationFrame(update);
-  }
-  window.addEventListener('scroll',schedule,{passive:true});
-  window.addEventListener('resize',schedule,{passive:true});
-  window.addEventListener('pageshow',schedule);
-  if(window.visualViewport)window.visualViewport.addEventListener('resize',schedule,{passive:true});
-  const button=document.getElementById('openInvitationBtn');
-  if(button)button.addEventListener('click',schedule);
-  update();
 })();
 </script>
 </body>
