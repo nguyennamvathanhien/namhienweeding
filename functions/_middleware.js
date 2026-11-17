@@ -1,6 +1,6 @@
 /**
  * AAC Wedding V12.8.2 – dynamic guest-specific metadata on Cloudflare Pages.
- * HTML pages in the root remain the original V12.8.2, byte-for-byte.
+ * HTML layout and behavior remain V12.8.2; only sharing metadata is adjusted.
  * This function runs only on /, /index.html, /nhagai(.html) per _routes.json.
  * It works for guests as well as Messenger/Meta crawlers without JavaScript.
  */
@@ -39,7 +39,7 @@ export async function onRequest(context) {
   const event = isBride && url.searchParams.get('event') === '29' ? '29' : (isBride ? '28' : '29');
   const when = event === '28' ? 'vào lúc 17:00 ngày 28.11.2026' : 'vào sáng 10:00 ngày 29.11.2026';
   const address = guest || 'bạn';
-  const title = `Trân trọng kính mời ${address} · ${event}.11.2026 ♡`;
+  const title = 'Thiệp cưới Nguyễn Nam và Thân Hiền';
   const description = `Trân trọng kính mời ${address} tới chung vui cùng chúng mình ${when} ♡`;
   // A distinct canonical URL per invitation stops the different guests being merged.
   // Keep event before guest, just like the original invitation pages expect.

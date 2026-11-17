@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
-<title>Trân trọng kính mời bạn · 29.11.2026 ♡</title>
+<title>Thiệp cưới Nguyễn Nam và Thân Hiền</title>
 <meta name="aac-build" content="V12.8-ONE-PHONE-10-PHOTOS-NHATRAI"/>
 <meta name="aac-version" content="V12.1 · Responsive Cover + Soft Fade Closing"/>
 <meta name="theme-color" content="#fff0f8"/>
@@ -12,13 +12,13 @@
 <meta name="referrer" content="strict-origin-when-cross-origin"/>
 <!-- Cloudflare: nếu đặt tên project khác namhien2026, thay hostname trong OG/Twitter meta ở đầu file. -->
 <meta name="wedding-build" content="AAC-V12.4-visible-softfade"/>
-<meta name="description" content="Thiệp cưới Nguyễn Nam &amp; Thân Hiền"/>
+<meta name="description" content="Trân trọng kính mời bạn tới chung vui cùng chúng mình vào sáng 10:00 ngày 29.11.2026 ♡"/>
 <meta property="og:type" content="website"/>
 <meta property="og:locale" content="vi_VN"/>
-<meta property="og:site_name" content="Thiệp cưới Nguyễn Nam &amp; Thân Hiền"/>
+<meta property="og:site_name" content="Thiệp cưới Nguyễn Nam và Thân Hiền"/>
 <meta property="og:url" content="https://namhienloveweddinginvitation.pages.dev/"/>
-<meta property="og:title" content="Trân trọng kính mời bạn · 29.11.2026 ♡"/>
-<meta property="og:description" content="Trân trọng kính mời bạn tới chung vui cùng chúng mình vào ngày 29.11.2026 ♡"/>
+<meta property="og:title" content="Thiệp cưới Nguyễn Nam và Thân Hiền"/>
+<meta property="og:description" content="Trân trọng kính mời bạn tới chung vui cùng chúng mình vào sáng 10:00 ngày 29.11.2026 ♡"/>
 <meta property="og:image" content="https://namhienloveweddinginvitation.pages.dev/hero.webp?og=v1284"/>
 <meta property="og:image:secure_url" content="https://namhienloveweddinginvitation.pages.dev/hero.webp?og=v1284"/>
 <meta property="og:image:type" content="image/webp"/>
@@ -26,8 +26,8 @@
 <meta property="og:image:height" content="1021"/>
 <meta property="og:image:alt" content="Ảnh thiệp cưới Nguyễn Nam và Thân Hiền"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Trân trọng kính mời bạn · 29.11.2026 ♡"/>
-<meta name="twitter:description" content="Trân trọng kính mời bạn tới chung vui cùng chúng mình vào ngày 29.11.2026 ♡"/>
+<meta name="twitter:title" content="Thiệp cưới Nguyễn Nam và Thân Hiền"/>
+<meta name="twitter:description" content="Trân trọng kính mời bạn tới chung vui cùng chúng mình vào sáng 10:00 ngày 29.11.2026 ♡"/>
 <meta name="twitter:image" content="https://namhienloveweddinginvitation.pages.dev/hero.webp?og=v1284"/>
 
 <link rel="preload" as="image" href="1.webp" fetchpriority="high"/>
@@ -6947,7 +6947,7 @@ const guestParam=guestParamRaw
   .slice(0,100);
 const guest=guestParam||'Quý Khách';
 document.getElementById('guestName').textContent=guest;
-document.title=guestParam?`Trân trọng kính mời ${guest} · ${EVENT.dateDot} ♡`:`Trân trọng kính mời bạn · ${EVENT.dateDot} ♡`;
+document.title='Thiệp cưới Nguyễn Nam và Thân Hiền';
 
 const rname=document.getElementById('rname');
 rname.value=guestParam?guest:'';
@@ -6960,9 +6960,7 @@ document.getElementById('quickWish').placeholder='Gửi lời chúc nhanh tới 
 // Meta cập nhật trong trình duyệt theo tên khách. Zalo/Messenger thường chỉ đọc
 // OG tĩnh ở đầu HTML; cần Pages Function riêng mới có preview theo từng guest.
 const shareDescription=`Trân trọng kính mời ${guestParam?guest:'bạn'} tới chung vui cùng chúng mình ${EVENT.key==='28'?'vào lúc 17:00 ngày 28.11.2026':'vào sáng 10:00 ngày 29.11.2026'} ♡`;
-const shareTitle=guestParam
-  ? `Trân trọng kính mời ${guest} · ${EVENT.dateDot} ♡`
-  : `Trân trọng kính mời bạn · ${EVENT.dateDot} ♡`;
+const shareTitle='Thiệp cưới Nguyễn Nam và Thân Hiền';
 for(const selector of ['meta[property="og:description"]','meta[name="description"]','meta[name="twitter:description"]']){
   const el=document.querySelector(selector);if(el)el.setAttribute('content',shareDescription);
 }
