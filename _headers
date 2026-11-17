@@ -29,3 +29,6 @@
 
 /*.mp3
   Cache-Control: public, max-age=86400
+
+/optimized/*
+  Cache-Control: public, max-age=86400
