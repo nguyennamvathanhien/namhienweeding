@@ -6956,9 +6956,7 @@ document.getElementById('quickGuest').textContent=guest;
 document.getElementById('quickWish').placeholder='Gửi lời chúc nhanh tới Nguyễn Nam & Thân Hiền...';
 // Meta cập nhật trong trình duyệt theo tên khách. Zalo/Messenger thường chỉ đọc
 // OG tĩnh ở đầu HTML; cần Pages Function riêng mới có preview theo từng guest.
-const shareDescription=guestParam
-  ? `Trân trọng kính mời ${guest} tới chung vui cùng chúng mình vào ngày ${EVENT.dateDot} ♡`
-  : `Trân trọng kính mời bạn tới chung vui cùng chúng mình vào ngày ${EVENT.dateDot} ♡`;
+const shareDescription=`Trân trọng kính mời ${guestParam?guest:'bạn'} tới chung vui cùng chúng mình ${EVENT.key==='28'?'vào lúc 17:00 ngày 28.11.2026':'vào sáng 10:00 ngày 29.11.2026'} ♡`;
 const shareTitle=guestParam
   ? `Trân trọng kính mời ${guest} · ${EVENT.dateDot} ♡`
   : `Trân trọng kính mời bạn · ${EVENT.dateDot} ♡`;

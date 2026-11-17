@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#fff1f7">
+<title>Tạo link mời riêng | Nguyễn Nam &amp; Thân Hiền</title>
+<style>
+:root{--rose:#d66c9c;--hot:#ec83ac;--text:#624d67;--muted:#937b93;--line:#f0d9e4;--light:#fff7fa;--shadow:0 14px 45px rgba(184,107,153,.12)}
+*{box-sizing:border-box}[hidden]{display:none!important}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 9% 0%,#ffe3ef,transparent 45%),radial-gradient(ellipse at 95% 20%,#e9f4ff,transparent 43%),#fff8fc;color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.5}
+button,input,textarea,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.55;cursor:default}a{color:#c15e8e}h1,h2,p{margin-top:0}.wrap{max-width:1160px;margin:auto;padding:clamp(14px,3vw,32px) 14px 72px}.top{text-align:center;padding:22px 12px 25px}.sticker{font-size:2.1rem;letter-spacing:.5rem}.eyebrow{font-size:.7rem;letter-spacing:.17em;color:#bf80a5;font-weight:900;margin:8px auto}.top h1{font-size:clamp(1.7rem,4vw,2.7rem);letter-spacing:-.035em;margin:7px 0;color:#835873}.top p{max-width:680px;color:var(--muted);margin:auto;font-size:.94rem}
+.layout{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:18px;align-items:start}.card{border:1px solid #f8dce9;background:rgba(255,255,255,.89);box-shadow:var(--shadow);border-radius:24px;padding:clamp(18px,2vw,25px);min-width:0}.card h2{font-size:1.14rem;margin:0 0 14px;color:#855877}.tag{display:inline-flex;align-items:center;gap:6px;background:#fff0f7;border:1px solid #f7d5e6;border-radius:20px;padding:4px 10px;font-size:.7rem;font-weight:900;color:#c777a2;margin-bottom:12px}
+.field{display:block;margin:0 0 15px}.field b{display:block;font-size:.79rem;margin:0 0 6px;color:#79596e}.field small{display:block;margin-top:5px;color:#a289a0;font-size:.71rem}.input{display:block;width:100%;border:1.5px solid var(--line);border-radius:13px;background:#fffbfd;color:#6f5271;padding:12px 13px;outline:none;min-height:45px}.input:focus{border-color:#e68eb8;box-shadow:0 0 0 3px rgba(244,174,210,.18)}textarea.input{min-height:110px;resize:vertical}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid #f1cfdf;background:white;border-radius:12px;padding:10px 14px;font-size:.82rem;font-weight:800;color:#aa6f91;min-height:41px;display:inline-flex;align-items:center;justify-content:center;gap:6px}.btn:hover{background:#fff4f9;border-color:#e8a0bf}.btn.primary{color:white;border-color:#f69fc1;background:linear-gradient(125deg,#ec88b1,#d784bc);box-shadow:0 8px 20px rgba(209,111,161,.22)}.btn.primary:hover{filter:brightness(1.04)}.btn.ghost{background:#fff6fa}.btn.danger{color:#b96078}.btn.compact{padding:6px 10px;font-size:.74rem;min-height:34px}.full{width:100%}.preview{margin:17px 0 0;border:1px dashed #eab9ce;background:linear-gradient(130deg,#fff9fb,#f2faff);padding:15px;border-radius:18px}.preview strong{display:block;font-size:.73rem;letter-spacing:.1em;color:#be84aa;margin-bottom:6px}.preview p{margin:0;font-size:.82rem;line-height:1.7}.privacy{margin:16px 0 0;font-size:.78rem;color:#937c91;line-height:1.8}
+.heading-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:15px}.count{background:#fff1f7;color:#d17eab;border-radius:50px;font-size:.72rem;font-weight:800;padding:5px 12px}.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 13px}.toolbar .input{flex:1;min-width:170px;max-width:none;font-size:.85rem}.table-outer{width:100%;overflow:auto;border:1px solid #f3dce7;border-radius:15px}.table{border-collapse:collapse;width:100%;min-width:660px;text-align:left;font-size:.8rem}.table th{background:#fff1f7;color:#ab7195;font-size:.73rem;letter-spacing:.02em;padding:11px;border-bottom:1px solid #f2d7e4;white-space:nowrap}.table td{padding:11px;border-bottom:1px solid #faeaf1;vertical-align:top}.table tr:last-child td{border-bottom:0}.table tbody tr:nth-child(2n){background:#fffbfd}.name{font-weight:800;color:#895a7d}.secondary{color:#9b8597;font-size:.73rem}.linktext{display:block;max-width:220px;word-break:break-all;color:#ba7096;text-decoration:none;font-size:.73rem;line-height:1.7}.row-actions{display:flex;gap:5px;flex-wrap:wrap}.empty{text-align:center;padding:30px 10px;color:#a88ca1;font-size:.86rem}.status{min-height:24px;color:#bf7195;font-size:.78rem;font-weight:750;margin:10px 0 0}.help{margin:20px 0 0;background:#fff9fc;border:1px solid #f4e3eb;border-radius:20px;padding:17px 22px;color:#90768b;font-size:.8rem;line-height:1.8}.help strong{color:#9d5f83}.help a{font-weight:700}.note{color:#a38da1;font-size:.72rem}.footer{text-align:center;color:#b291ad;font-size:.77rem;padding-top:27px}
+@media(max-width:840px){.layout{grid-template-columns:1fr}.card{padding:18px}.top{padding:16px 6px 20px}.toolbar .input{min-width:100%}}@media(max-width:380px){.btn{font-size:.77rem;padding:9px 10px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="top"><div class="sticker" aria-hidden="true">🧸 ♡ 💌</div><div class="eyebrow">NAM &amp; HIỀN · WEDDING 2026</div><h1>Tạo link thiệp mời riêng</h1><p>Nhập tên khách mời, chọn ngày và bấm <b>Tạo link</b>. Danh sách tự lưu trên trình duyệt này để bạn quay lại sao chép khi cần.</p></header>
+<div class="layout">
+<section class="card" aria-labelledby="create-title"><span class="tag">✦ DANH SÁCH KHÁCH MỜI</span><h2 id="create-title">Tạo lời mời cá nhân hóa</h2>
+<form id="makeForm">
+<label class="field"><b>Tên khách mời (mỗi dòng một người)</b><textarea class="input" id="guestNames" maxlength="15000" placeholder="Ví dụ: Nguyễn Văn A (Enter để xuống dòng, thêm khách khác)" required></textarea><small>Nhập một tên hoặc dán nhiều tên từ Excel theo từng dòng.</small></label>
+<label class="field"><b>Buổi tiệc muốn mời</b><select class="input" id="eventChoice"><option value="trai-29">Nhà trai · 10:00 sáng, 29/11/2026</option><option value="gai-28">Nhà gái · 17:00, 28/11/2026</option><option value="gai-29">Nhà gái · 10:00 sáng, 29/11/2026</option></select></label>
+<label class="field"><b>Địa chỉ website Cloudflare Pages</b><input class="input" id="baseUrl" type="url" placeholder="https://ten-website.pages.dev/" required><small>Chỉ cần nhập đúng một lần. Có thể sử dụng tên miền riêng nếu đã cấu hình.</small></label>
+<div class="actions"><button class="btn primary full" id="createBtn" type="submit">💌 Tạo link &amp; lưu danh sách</button><button class="btn ghost" id="clearDraft" type="button">Xóa ô nhập</button><button class="btn ghost" id="cancelEdit" type="button" hidden>Hủy sửa</button></div>
+</form>
+<p class="status" id="status" role="status" aria-live="polite"></p>
+<div class="preview"><strong>♡ NỘI DUNG XEM TRƯỚC MESSENGER</strong><p id="previewText">Trân trọng kính mời bạn tới chung vui cùng chúng mình vào sáng 10:00 ngày 29.11.2026 ♡</p></div>
+<p class="privacy">🔒 Danh sách chỉ lưu trên <b>trình duyệt/thiết bị này</b>, không tự tải lên Google Sheets. Hãy tải CSV để sao lưu. Tên khách nằm trong đường link nên người có link có thể thấy tên đó.</p>
+</section>
+<section class="card" aria-labelledby="list-title"><div class="heading-row"><h2 id="list-title" style="margin:0">Danh sách link đã tạo</h2><span class="count" id="count">0 khách</span></div>
+<div class="toolbar"><input class="input" id="search" placeholder="🔎 Tìm tên khách hoặc ngày mời…" aria-label="Tìm trong danh sách"><button type="button" class="btn" id="copyExcel">📋 Sao chép cho Excel</button><button type="button" class="btn" id="exportCsv">⬇ Xuất CSV</button></div>
+<div class="table-outer"><table class="table"><thead><tr><th>STT</th><th>Tên khách mời</th><th>Buổi tiệc</th><th>Link cá nhân</th><th>Thao tác</th></tr></thead><tbody id="rows"></tbody></table></div>
+<p id="empty" class="empty">Chưa có link nào. Hãy nhập tên khách ở bên trái rồi bấm Tạo link.</p>
+<div class="actions" style="margin-top:15px"><button type="button" class="btn danger" id="clearAll">Xóa toàn bộ danh sách</button></div>
+</section>
+</div>
+<div class="help"><strong>Hướng dẫn nhanh:</strong> Tạo link → bấm <b>Sao chép</b> cạnh tên khách để gửi Messenger; hoặc bấm <b>Sao chép cho Excel</b>, mở Excel và dán vào cột tên khách / link. Link luôn có dạng <code>?event=29&amp;guest=Ten-Khach</code> (Nhà gái có thể là <code>event=28</code>). Để <b>tên khách xuất hiện trong mô tả Messenger</b>, hãy triển khai cả thư mục <code>functions/</code> và file <code>_routes.json</code> lên <b>Cloudflare Pages</b> qua GitHub Desktop; chỉ mở HTML trên máy hoặc dùng GitHub Pages thì metadata không thể thay đổi theo từng khách.</div>
+<div class="footer">Nguyễn Nam ♡ Thân Hiền · 29.11.2026</div>
+</main>
+<script>
+(()=>{'use strict';
+const KEY='aac_wedding_guest_links_v1282_v1';const DRAFT='aac_wedding_guest_draft_v1282_v1';
+const DEFAULT_BASE='https://namhienloveweddinginvitation.pages.dev/';
+const $=id=>document.getElementById(id);
+const choices={
+ 'trai-29':{side:'trai',event:'29',path:'index.html',label:'Nhà trai · 29/11, 10:00',when:'vào sáng 10:00 ngày 29.11.2026'},
+ 'gai-28':{side:'gai',event:'28',path:'nhagai.html',label:'Nhà gái · 28/11, 17:00',when:'vào lúc 17:00 ngày 28.11.2026'},
+ 'gai-29':{side:'gai',event:'29',path:'nhagai.html',label:'Nhà gái · 29/11, 10:00',when:'vào sáng 10:00 ngày 29.11.2026'}
+};
+const readJSON=(key,fallback)=>{try{const val=localStorage.getItem(key);return val?JSON.parse(val):fallback}catch(_){return fallback}};
+const saveJSON=(key,val)=>{try{localStorage.setItem(key,JSON.stringify(val));return true}catch(_){return false}};
+let list=readJSON(KEY,[]);if(!Array.isArray(list))list=[];
+list=list.filter(r=>r&&typeof r.name==='string'&&choices[r.choice]).slice(0,10000);
+let editing=null;let searchTerm='';
+const draft=readJSON(DRAFT,{});
+const savedBase=typeof draft.base==='string'?draft.base:'';
+const onlineBase=location.protocol==='https:'?new URL('.',location.href).href:DEFAULT_BASE;
+$('baseUrl').value=savedBase||onlineBase;
+$('eventChoice').value=choices[draft.choice]?draft.choice:'trai-29';
+$('guestNames').value=typeof draft.names==='string'?draft.names:'';
+function cleanName(input){return String(input).normalize('NFC').replace(/[<>\u0000-\u001f\u007f]/g,'').replace(/\s+/g,' ').trim().slice(0,100)}
+function validBase(){try{const url=new URL($('baseUrl').value.trim());if(!['https:','http:'].includes(url.protocol))return null;url.search='';url.hash='';if(!url.pathname.endsWith('/'))url.pathname+='/';return url}catch(_){return null}}
+function linkOf(row){const base=validBase();if(!base)return null;const info=choices[row.choice];const url=new URL(info.path,base);url.searchParams.set('event',info.event);url.searchParams.set('guest',row.name);return url.href}
+function setStatus(text){$('status').textContent=text}
+function persist(){if(!saveJSON(KEY,list))setStatus('Trình duyệt không cho lưu tự động. Hãy xuất CSV ngay để giữ danh sách.')}
+function saveDraft(){saveJSON(DRAFT,{base:$('baseUrl').value,choice:$('eventChoice').value,names:$('guestNames').value})}
+function updatePreview(){const first=$('guestNames').value.split(/\r?\n/).map(cleanName).find(Boolean)||'bạn';$('previewText').textContent=`Trân trọng kính mời ${first} tới chung vui cùng chúng mình ${choices[$('eventChoice').value].when} ♡`}
+['guestNames','baseUrl','eventChoice'].forEach(id=>$(id).addEventListener('input',()=>{saveDraft();updatePreview();if(id==='baseUrl')render()}));
+$('eventChoice').addEventListener('change',()=>{saveDraft();updatePreview()});
+function addButton(label,action,rowId){const b=document.createElement('button');b.type='button';b.className='btn compact';b.textContent=label;b.dataset.act=action;b.dataset.id=rowId;return b}
+function makeTd(text,cls){const c=document.createElement('td');if(cls)c.className=cls;c.textContent=text;return c}
+function shown(){const needle=searchTerm.trim().toLocaleLowerCase('vi-VN');return needle?list.filter(row=>row.name.toLocaleLowerCase('vi-VN').includes(needle)||choices[row.choice].label.toLocaleLowerCase('vi-VN').includes(needle)):list}
+function render(){const tbody=$('rows');tbody.replaceChildren();$('count').textContent=list.length+' khách';const filtered=shown();$('empty').hidden=filtered.length>0;if(!filtered.length){$('empty').textContent=list.length?'Không tìm thấy khách phù hợp.':'Chưa có link nào. Hãy nhập tên khách ở bên trái rồi bấm Tạo link.';return}
+ const frag=document.createDocumentFragment();filtered.forEach((r,i)=>{const tr=document.createElement('tr');tr.append(makeTd(String(i+1),'secondary'),makeTd(r.name,'name'),makeTd(choices[r.choice].label,'secondary'));
+ const td=document.createElement('td');const a=document.createElement('a');const link=linkOf(r);a.className='linktext';a.href=link||'#';a.target='_blank';a.rel='noopener noreferrer';a.textContent=link||'Địa chỉ website chưa đúng';a.title=link||'';td.append(a);tr.append(td);
+ const tools=document.createElement('td');const group=document.createElement('div');group.className='row-actions';group.append(addButton('Sao chép','copy',r.id),addButton('Sửa','edit',r.id),addButton('Xóa','remove',r.id));tools.append(group);tr.append(tools);frag.append(tr)});tbody.append(frag)
+}
+$('makeForm').addEventListener('submit',ev=>{ev.preventDefault();const base=validBase();if(!base){setStatus('Vui lòng điền địa chỉ website hợp lệ.');$('baseUrl').focus();return}
+ const names=$('guestNames').value.split(/\r?\n/).map(cleanName).filter(Boolean);if(!names.length){setStatus('Bạn cần nhập ít nhất một tên khách mời.');return}if(names.length>500){setStatus('Mỗi lần chỉ tạo tối đa 500 link. Hãy chia thành nhiều lượt.');return}
+ const choice=$('eventChoice').value;
+ if(editing){const existing=list.find(x=>x.id===editing);if(existing){existing.name=names[0];existing.choice=choice;persist();setStatus(`Đã cập nhật link cho ${names[0]}.`)}editing=null;$('cancelEdit').hidden=true;$('createBtn').textContent='💌 Tạo link & lưu danh sách';}
+ else{let added=0,skipped=0;for(const name of names){const exists=list.some(x=>x.choice===choice&&x.name.toLocaleLowerCase('vi-VN')===name.toLocaleLowerCase('vi-VN'));if(exists){skipped++;continue}list.unshift({id:'g'+Date.now().toString(36)+Math.random().toString(36).slice(2,9),name,choice});added++}
+ persist();setStatus(`Đã tạo và lưu ${added} link${skipped?' · bỏ qua '+skipped+' khách đã có':''}.`)}
+ $('guestNames').value='';saveDraft();updatePreview();render();$('guestNames').focus();});
+$('cancelEdit').addEventListener('click',()=>{editing=null;$('cancelEdit').hidden=true;$('createBtn').textContent='💌 Tạo link & lưu danh sách';$('guestNames').value='';saveDraft();updatePreview();});
+$('clearDraft').addEventListener('click',()=>{$('guestNames').value='';saveDraft();updatePreview();$('guestNames').focus();});
+$('search').addEventListener('input',e=>{searchTerm=e.target.value;render()});
+async function copyText(text){if(!text)return false;try{await navigator.clipboard.writeText(text);return true}catch(_){}try{const input=document.createElement('textarea');input.value=text;input.style.position='fixed';input.style.left='-9999px';document.body.append(input);input.select();const ok=document.execCommand('copy');input.remove();return ok}catch(_){return false}}
+$('rows').addEventListener('click',async ev=>{const btn=ev.target.closest('button[data-act]');if(!btn)return;const row=list.find(x=>x.id===btn.dataset.id);if(!row)return;
+ if(btn.dataset.act==='copy'){const ok=await copyText(linkOf(row));setStatus(ok?'Đã sao chép link của '+row.name+'.':'Không sao chép được, bạn hãy nhấn vào đường link rồi copy thủ công.');}
+ if(btn.dataset.act==='edit'){editing=row.id;$('guestNames').value=row.name;$('eventChoice').value=row.choice;$('createBtn').textContent='💾 Lưu thay đổi';$('cancelEdit').hidden=false;saveDraft();updatePreview();$('guestNames').scrollIntoView({behavior:'smooth',block:'center'});$('guestNames').focus();setStatus('Đang sửa: '+row.name);}
+ if(btn.dataset.act==='remove'){if(!confirm('Xóa link của '+row.name+' khỏi danh sách này?'))return;list=list.filter(x=>x.id!==row.id);persist();render();setStatus('Đã xóa '+row.name+'.');}
+});
+function dataRows(){return [['STT','Tên khách mời','Buổi tiệc','Link cá nhân'],...list.map((r,i)=>[String(i+1),r.name,choices[r.choice].label,linkOf(r)||''])]}
+function safeCell(value){let s=String(value??'');if(/^[\s]*[=+\-@]/.test(s))s="'"+s;return s}
+$('copyExcel').addEventListener('click',async()=>{if(!list.length){setStatus('Chưa có link để sao chép.');return}const tsv=dataRows().map(row=>row.map(safeCell).join('\t')).join('\r\n');const ok=await copyText(tsv);setStatus(ok?'Đã sao chép bảng. Mở Excel, chọn ô A1 rồi nhấn Ctrl + V.':'Không sao chép được, hãy dùng nút Xuất CSV.');});
+$('exportCsv').addEventListener('click',()=>{if(!list.length){setStatus('Chưa có link để xuất.');return}const csv='\uFEFF'+dataRows().map(row=>row.map(v=>'"'+safeCell(v).replace(/"/g,'""')+'"').join(',')).join('\r\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='Danh_sach_link_moi_Nam_Hien.csv';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);setStatus('Đã xuất CSV. Hãy lưu file này để sao lưu danh sách.');});
+$('clearAll').addEventListener('click',()=>{if(!list.length)return;if(!confirm('XÓA TOÀN BỘ '+list.length+' link đã lưu trên trình duyệt này? Hãy xuất CSV trước nếu cần.'))return;list=[];persist();render();setStatus('Đã xóa toàn bộ danh sách.');});
+updatePreview();render();
+})();
+</script>
+</body>
+</html>
